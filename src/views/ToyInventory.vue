@@ -4,7 +4,7 @@
   </div>
 </template>
 
-<script type="text/javascript" src="">
+<script>
 import Toys from "@/components/toys.vue"
 
 export default {

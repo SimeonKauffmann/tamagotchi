@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import First from './views/First.vue'
-import Inventory from './views/Inventory.vue'
+import Inventory from './views/ToyInventory.vue'
+import Food from './views/FoodInventory.vue'
 
 
 Vue.use(Router)
@@ -15,9 +16,14 @@ export default new Router({
       component: First
     },
     {
-      path: '/about',
+      path: '/toys',
       name: 'inventory',
       component: Inventory
+    },
+    {
+      path: '/food',
+      name: 'food',
+      component: Food
     }
   ]
 })

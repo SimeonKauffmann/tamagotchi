@@ -1,20 +1,33 @@
 <template>
-  <div class="home">
-    <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
-    <!--<HelloWorld msg="Welcome to Your Vue.js App"/>-->
+  <div>
+    <something></something>
+    <h1>hi!</h1>
+   <poop class="poop" v-for="poop in $store.state.poops" v-bind:style="{top:poop[0]+%;left:poop[1]+%;}"></poop>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-//import HelloWorld from '@/components/HelloWorld.vue'
 import Something from "@/components/something.vue"
+import Poop from "@/components/poop.vue"
 
 export default {
+  created(){
+    if(localStorage.getItem('petName') === null){
+     this.$router.push({name:'create'})  
+    } else {
+      this.$store.commit('addTime')
+    }
+    
+    this.$store.commit('addPoop')
+    
+  },
+  computed: {
+    
+  },
   name: "first",
   components: {
-    Something
-    //HelloWorld
+    Something,
+    Poop
   }
 }
 </script>

@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <something />
     <div id="nav">
       <router-link to="/">Home</router-link>|
       <router-link to="/toys">Toys</router-link>|
@@ -34,12 +33,7 @@
 </style>
 
 <script>
-import Something from "./components/something.vue"
-
 export default {
-  name: "App",
-  components: {
-    Something
-  }
+  name: "App"
 }
 </script>

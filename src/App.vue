@@ -3,6 +3,7 @@
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
+      <something/>
     </div>
     <router-view/>
   </div>
@@ -29,3 +30,15 @@
   color: #42b983;
 }
 </style>
+
+<script>
+import Something from './components/something.vue'
+
+export default {
+  name: 'App',
+  components: {
+    Something
+  }
+}
+  
+</script>

@@ -5,19 +5,17 @@
 </template>
 
 <style type="text/css">
-  .tamagotchi{
-    width: 200px;
-    height: 100px;
-    background-color:blue;
-    border: 2px solid black;
-  }
+.tamagotchi {
+  width: 200px;
+  height: 100px;
+  background-color: blue;
+  border: 2px solid black;
+}
 </style>
 
 <script>
-
 export default {
-  name: 'Something'
+  name: "Something"
 }
-
 </script>
 

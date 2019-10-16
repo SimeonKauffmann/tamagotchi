@@ -1,51 +1,42 @@
 <template>
-<div class="inventory-wrapper">
-    <div class="inventory-container" v-on:drop="drop" v-on:dragover="allowDrop">
-      <div v-on:dragstart="dragStart" v-on:drag="dragging" draggable="true" id="toyOne"></div>
-    </div>
-    <div class="inventory-container" v-on:drop="drop" v-on:dragover="allowDrop">
-      <div v-on:dragstart="dragStart" v-on:drag="dragging" draggable="true" id="toyTwo"></div>
-    </div>
-    <div class="inventory-container" v-on:drop="drop" v-on:dragover="allowDrop">
-      <div v-on:dragstart="dragStart" v-on:drag="dragging" draggable="true" id="toyThree"></div>
-    </div>
+<div>
+   <div class="inventory-wrapper" v-on:drop="drop" v-on:dragover="allowDrop">
+     <div class="food" v-for="food in foods" v-on:dragstart="dragStart" v-on:drag="dragging" draggable="true" :id="food.name">{{food.name}}</div>
+     </div>
+  <div class="drop-container" v-on:drop="drop" v-on:dragover="allowDrop">
+
+  </div>
 </div>
 </template>
 
-<style scoped>
-
-#toyOne {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: green;
-}
-
-#toyTwo {
-  width: 40px;
-  height: 40px;
-  background-color: blueviolet;
-}
-
-#toyThree {
-width: 0; 
-height: 0; 
-border-left: 40px solid transparent;
-border-right: 40px solid transparent;
-border-bottom: 40px solid red;
-}
+<style>
 
 .inventory-wrapper {
   display: flex;
-  flex-wrap: nowrap;
+  width: 400px;
+  height: 100px;
+  border: 1px solid #aaaaaa;
 }
 
-.inventory-container {
-  width: 100px;
+.drop-container {
+  width: 200px;
+  height: 200px;
   margin: 15px;
   padding: 10px;
   border: 1px solid #aaaaaa;
 }
+
+.food {
+  margin: 10px;
+  padding: 5px;
+  height: 20px;
+  background: green;
+}
+
+.food:hover {
+  cursor: pointer;
+}
+
 </style>
 
 <script>
@@ -67,6 +58,16 @@ export default {
       var data = event.dataTransfer.getData("Text")
       event.target.appendChild(document.getElementById(data))
       console.log('dropped')
+    }
+  },
+  data: function() {
+    return {
+      foods: [
+        {name: 'steak', type: 'meat'},
+        {name: 'chicken', type: 'meat'},
+        {name: 'potato', type: 'vegetable'},
+        {name: 'corn', type: 'vegetable'}
+      ]
     }
   }
 }

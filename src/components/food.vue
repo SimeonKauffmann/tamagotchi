@@ -1,12 +1,12 @@
 <template>
 <div class="inventory-wrapper">
-    <div class="inventory-container" v-on:drop="drop" v-on:dragover="allowDrop">
+    <div class="inventory-container">
       <div v-on:dragstart="dragStart" v-on:drag="dragging" draggable="true" id="foodOne"></div>
     </div>
-    <div class="inventory-container" v-on:drop="drop" v-on:dragover="allowDrop">
+    <div class="inventory-container">
       <div v-on:dragstart="dragStart" v-on:drag="dragging" draggable="true" id="foodTwo"></div>
     </div>
-    <div class="inventory-container" v-on:drop="drop" v-on:dragover="allowDrop">
+    <div class="inventory-container">
       <div v-on:dragstart="dragStart" v-on:drag="dragging" draggable="true" id="foodThree"></div>
     </div>
 </div>

@@ -1,19 +1,47 @@
 <template>
-  <div>
-    <p>Dra texten mellan rutorna!</p>
-    <div class="droptarget" v-on:drop="drop" v-on:dragover="allowDrop">
-      <p v-on:dragstart="dragStart" v-on:drag="dragging" draggable="true" id="dragtarget">Dra mig!</p>
+<div class="inventory-wrapper">
+    <div class="inventory-container" v-on:drop="drop" v-on:dragover="allowDrop">
+      <div v-on:dragstart="dragStart" v-on:drag="dragging" draggable="true" id="foodOne"></div>
     </div>
-    <div class="droptarget" v-on:drop="drop" v-on:dragover="allowDrop"></div>
-    <p id="demo"></p>
-  </div>
+    <div class="inventory-container" v-on:drop="drop" v-on:dragover="allowDrop">
+      <div v-on:dragstart="dragStart" v-on:drag="dragging" draggable="true" id="foodTwo"></div>
+    </div>
+    <div class="inventory-container" v-on:drop="drop" v-on:dragover="allowDrop">
+      <div v-on:dragstart="dragStart" v-on:drag="dragging" draggable="true" id="foodThree"></div>
+    </div>
+</div>
 </template>
 
-<style>
-.droptarget {
-  float: left;
+<style scoped>
+
+#foodOne {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: green;
+}
+
+#foodTwo {
+  width: 40px;
+  height: 40px;
+  background-color: blueviolet;
+}
+
+#foodThree {
+width: 0; 
+height: 0; 
+border-left: 40px solid transparent;
+border-right: 40px solid transparent;
+border-bottom: 40px solid red;
+}
+
+.inventory-wrapper {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.inventory-container {
   width: 100px;
-  height: 35px;
   margin: 15px;
   padding: 10px;
   border: 1px solid #aaaaaa;
@@ -25,20 +53,21 @@ export default {
   name: "Food",
 
   methods: {
-    dragStart: function(event) {
+    dragStart(event) {
       event.dataTransfer.setData("Text", event.target.id)
+      console.log(event.target)
     },
-    dragging: function(event) {
-      document.getElementById("demo").innerHTML = "Woho!"
+    dragging(event) {
+      console.log('dragging')
     },
-    allowDrop: function(event) {
+    allowDrop(event) {
       event.preventDefault()
     },
-    drop: function(event) {
+    drop(event) {
       event.preventDefault()
       var data = event.dataTransfer.getData("Text")
       event.target.appendChild(document.getElementById(data))
-      document.getElementById("demo").innerHTML = "Plonk!"
+      console.log('dropped')
     }
   }
 }

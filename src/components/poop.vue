@@ -1,6 +1,6 @@
 <template>
     
-    <div v-on:click="">
+    <div v-on:click="$store.commit('poopGone')" >
     </div>
     
 </template>
@@ -14,6 +14,9 @@
         background-color:brown;
         margin: 30px;
         position: absolute;
+    }
+    .poop-gone {
+        display: none;
     }
 </style>
 

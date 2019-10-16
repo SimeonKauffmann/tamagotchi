@@ -6,10 +6,12 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    
     Name: '',
-    timeNow: moment().format('YYYYMMDDHHmm'),
+    timeNow: moment().format("YYYYMMDDHHmm"),
     timeThen: localStorage.getItem('timeThen'),
     petName: localStorage.getItem('petName'),
+    poopDisplay: 'block',
     poops: [],
     poopsNumber: 0
   },
@@ -27,11 +29,14 @@ export default new Vuex.Store({
     for(let i = 0; i <= this.state.poopsNumber; i++){
       this.state.poops.push([Math.floor(Math.random() * 100), Math.floor(Math.random() * 100)])
       }
+    }, 
+    poopGone(){
+      this.state.poopDisplay = 'none'
     }
-    
       
   },
   actions: {
+    
 
   }
 })

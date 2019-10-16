@@ -4,12 +4,14 @@
   </div>
 </template>
 
-<style type="text/css">
+<style type="text/css" scope>
 .tamagotchi {
   width: 200px;
   height: 100px;
   background-color: blue;
   border: 2px solid black;
+  position: absolute;
+  margin: auto;
 }
 </style>
 

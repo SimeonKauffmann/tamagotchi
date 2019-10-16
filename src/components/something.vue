@@ -10,7 +10,6 @@
   height: 100px;
   background-color: blue;
   border: 2px solid black;
-  position: absolute;
   margin: auto;
 }
 </style>

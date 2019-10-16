@@ -2,12 +2,14 @@
   <div>
     <something></something>
     <h1>hi!</h1>
+    <feel />
    <poop class="poop" v-for="poop in $store.state.poops" v-bind:style="{ top: poop[0] + '%', left: poop[1] + '%', display: $store.state.poopDisplay}" />
   </div>
 </template>
 <script>
 import Something from "@/components/something.vue"
 import Poop from "@/components/poop.vue"
+import Feel from "@/components/feel.vue"
 
 export default {
   created(){
@@ -25,7 +27,8 @@ export default {
   name: "first",
   components: {
     Something,
-    Poop
+    Poop,
+    Feel
   }
 }
 </script>

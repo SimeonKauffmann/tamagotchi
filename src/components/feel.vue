@@ -1,5 +1,6 @@
 <template>
     <div>
+        <div id="credits"> {{'Galactic Credits: ' + $store.state.credits}}</div>
         <p>Happiness</p>
         <div id="happy-bar"><div id="happy-meter" v-bind:style="{width: $store.state.happy + 'px'}"></div></div>
         <p>Hunger</p>
@@ -8,6 +9,10 @@
 </template>
 
 <style scope>
+#credits{
+    border: 2px solid black;
+    width: 200px;
+}
 
 #happy-bar{
     width:100px;

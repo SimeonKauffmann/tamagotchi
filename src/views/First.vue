@@ -1,6 +1,7 @@
 <template>
   <div>
     <something></something>
+    <h2>{{$store.state.petName}}</h2>
     <feel />
     <poop
       class="poop"

@@ -1,52 +1,21 @@
 <template>
-<div class="inventory-wrapper">
-    <div class="inventory-container">
-      <div v-on:dragstart="dragStart" v-on:drag="dragging" draggable="true" id="foodOne"></div>
+  <div>
+    <div class="drop-wrapper">
+      <div class="play-container">Play</div>
+      <div class="feed-container" v-on:drop="drop" v-on:dragover="allowDrop">Feed</div>
     </div>
-    <div class="inventory-container">
-      <div v-on:dragstart="dragStart" v-on:drag="dragging" draggable="true" id="foodTwo"></div>
+    <div class="inventory-wrapper" v-on:drop="drop" v-on:dragover="allowDrop">
+      <div
+        class="food"
+        v-for="food in foods"
+        v-on:dragstart="dragStart"
+        v-on:drag="dragging"
+        draggable="true"
+        :id="food.name"
+      >{{food.name}}</div>
     </div>
-    <div class="inventory-container">
-      <div v-on:dragstart="dragStart" v-on:drag="dragging" draggable="true" id="foodThree"></div>
-    </div>
-</div>
+  </div>
 </template>
-
-<style scoped>
-
-#foodOne {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: green;
-}
-
-#foodTwo {
-  width: 40px;
-  height: 40px;
-  background-color: blueviolet;
-}
-
-#foodThree {
-width: 0; 
-height: 0; 
-border-left: 40px solid transparent;
-border-right: 40px solid transparent;
-border-bottom: 40px solid red;
-}
-
-.inventory-wrapper {
-  display: flex;
-  flex-wrap: nowrap;
-}
-
-.inventory-container {
-  width: 100px;
-  margin: 15px;
-  padding: 10px;
-  border: 1px solid #aaaaaa;
-}
-</style>
 
 <script>
 export default {
@@ -55,10 +24,9 @@ export default {
   methods: {
     dragStart(event) {
       event.dataTransfer.setData("Text", event.target.id)
-      console.log(event.target)
     },
     dragging(event) {
-      console.log('dragging')
+      console.log("dragging")
     },
     allowDrop(event) {
       event.preventDefault()
@@ -67,8 +35,68 @@ export default {
       event.preventDefault()
       var data = event.dataTransfer.getData("Text")
       event.target.appendChild(document.getElementById(data))
-      console.log('dropped')
+      console.log("dropped")
+    }
+  },
+  data() {
+    return {
+      foods: [
+        { name: "steak", type: "meat" },
+        { name: "chicken", type: "meat" },
+        { name: "potato", type: "vegetable" },
+        { name: "corn", type: "vegetable" }
+      ]
     }
   }
 }
 </script>
+
+
+<style>
+.inventory-wrapper {
+  display: flex;
+  width: 400px;
+  height: 100px;
+  border: 1px solid #aaaaaa;
+  margin: auto;
+}
+
+.play-container {
+  width: 150px;
+  height: 150px;
+  margin: 15px;
+  padding: 10px;
+  border: 1px solid #aaaaaa;
+  margin: auto;
+  text-align: center;
+}
+
+.feed-container {
+  width: 150px;
+  height: 150px;
+  margin: 15px;
+  padding: 10px;
+  border: 1px solid #aaaaaa;
+  margin: auto;
+  text-align: center;
+}
+
+.drop-wrapper {
+  display: flex;
+  width: 500px;
+  margin: auto;
+  margin-bottom: 30px;
+}
+
+.food {
+  margin: 10px;
+  padding: 5px;
+  height: 20px;
+  background: green;
+  color: white;
+}
+
+.food:hover {
+  cursor: pointer;
+}
+</style>

@@ -40,12 +40,13 @@ export default new Vuex.Store({
       this.state.happy += 1
       this.state.credits += 1
     },
-    Feed(cost) {
-      if(this.state.credits < cost){
+    Feed(state, cost) {
+      if(state.credits < cost){
         alert('You cant afford that')
       } else {
         this.state.credits-= cost
         let a = Math.floor(Math.random()*3)
+        console.log(a)
         if(a === 3){
           alert("Oh no! You fed the tamagotchi rotten food!")
           setInterval(function(){this.state.poops.push([Math.floor(Math.random() * 100), Math.floor(Math.random() * 100)], 500)})

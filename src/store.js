@@ -41,33 +41,55 @@ export default new Vuex.Store({
       this.state.happy += 1
       this.state.credits += 1
     },
-    Feed(cost) {
-      if(this.state.credits < cost){
+    // Feed(state, cost) {
+    //   if(state.credits < cost){
+    //     alert('You cant afford that')
+    //   } else {
+    //     this.state.credits-= cost
+    //     let a = Math.floor(Math.random()*3)
+    //     console.log(a)
+    //     if(a === 3){
+    //       alert("Oh no! You fed the tamagotchi rotten food!")
+    //       setInterval(function(){this.state.poops.push([Math.floor(Math.random() * 100), Math.floor(Math.random() * 100)], 500)})
+    //       setTimeout(clearInterval(), 30000)
+    //       if(this.state.happy >= 60){this.state.happy-= 60}else{this.state.happy = 0}
+    //       if(this.state.hunger >= 60){this.state.hunger-= 60}else{this.state.hunger = 0}
+    //     } else {
+    //       if(this.state.happy + 20 > 100){this.state.happy = 100}else{this.state.happy += 20}
+    //       if(this.state.hunger + cost > 100){this.state.hunger = 100}else{this.state.hunger += cost}
+    //     }
+    //   }
+    // },
+    // Play() {
+    //     if(this.state.hunger = 0){
+    //       alert(this.state.petName + ', is too hungry')
+    //     } else {
+    //       let a = Math.floor(Math.random()*40)
+    //       if (a + this.state.happy > 100){this.state.happy = 100} else {this.state.happy += a}
+    //       this.state.credits += ((a * this.state.happy)/100)
+    //     }
+        
+    //   },
+    Feed(state, cost) {
+      if(state.credits < cost){
         alert('You cant afford that')
       } else {
-        this.state.credits-= cost
-        let a = Math.floor(Math.random()*3)
-        if(a === 3){
-          alert("Oh no! You fed the tamagotchi rotten food!")
-          setInterval(function(){this.state.poops.push([Math.floor(Math.random() * 100), Math.floor(Math.random() * 100)], 500)})
-          setTimeout(clearInterval(), 30000)
-          if(this.state.happy >= 60){this.state.happy-= 60}else{this.state.happy = 0}
-          if(this.state.hunger >= 60){this.state.hunger-= 60}else{this.state.hunger = 0}
-        } else {
+        this.state.credits -= cost
+          if(this.state.hunger > 85) {this.state.happy -= 20} else {
           if(this.state.happy + 20 > 100){this.state.happy = 100}else{this.state.happy += 20}
           if(this.state.hunger + cost > 100){this.state.hunger = 100}else{this.state.hunger += cost}
-        }
       }
+    }
+      console.log(this.state.hunger)
     },
-    Play() {
-        if(this.state.hunger = 0){
+      Play(state, fun) {
+        if(state.hunger < 10){
           alert(this.state.petName + ', is too hungry')
         } else {
-          let a = Math.floor(Math.random()*40)
-          if (a + this.state.happy > 100){this.state.happy = 100} else {this.state.happy += a}
-          this.state.credits += ((a * this.state.happy)/100)
-        }
-        
+          if (fun + this.state.happy > 100){this.state.happy = 100} else {this.state.happy += fun}
+          this.state.credits += ((fun * this.state.happy)/100)
+          this.state.hunger -= fun
+        }       
       },
     Sleep() {
       if (this.state.time24 < 6 || this.state.time24 > 22) {

@@ -1,14 +1,15 @@
 <template>
   <div>
     <div class="drop-wrapper">
-      <div class="play-container">Play</div>
-      <div class="feed-container" v-on:drop="drop" v-on:dragover="allowDrop">Feed</div>
+      <div class="drop-container">Play</div>
+      <div class="drop-container" v-on:drop="drop" v-on:dragover="allowDrop">Feed</div>
     </div>
-    <div class="inventory-wrapper" v-on:drop="drop" v-on:dragover="allowDrop">
+    <div class="inventory-wrapper">
       <div
         class="food"
         v-for="food in foods"
-        v-on:dragstart="dragStart"
+        v-bind:key="food.name"
+        v-on:dragstart="dragStart(food, $event)"
         v-on:drag="dragging"
         draggable="true"
         :id="food.name"
@@ -22,8 +23,8 @@ export default {
   name: "Food",
 
   methods: {
-    dragStart(event) {
-      event.dataTransfer.setData("Text", event.target.id)
+    dragStart(food, event) {
+      this.food = food
     },
     dragging(event) {
       console.log("dragging")
@@ -33,45 +34,45 @@ export default {
     },
     drop(event) {
       event.preventDefault()
-      var data = event.dataTransfer.getData("Text")
-      event.target.appendChild(document.getElementById(data))
+      console.log(this.food)
+      event.target.appendChild(
+        document.getElementById(this.food.name).cloneNode(true)
+      )
+      setTimeout(() => {
+        event.target.removeChild(document.getElementById(this.food.name))
+      }, 3000)
+      this.$store.commit("Feed", this.food.cost)
+      console.log(this.food.cost)
+      // this.toys.push({ name: this.toy.name })
       console.log("dropped")
     }
   },
   data() {
     return {
+      food: null,
       foods: [
-        { name: "steak", type: "meat" },
-        { name: "chicken", type: "meat" },
-        { name: "potato", type: "vegetable" },
-        { name: "corn", type: "vegetable" }
+        { name: "chicken", type: 'meat', cost: 1 },
+        { name: "steak", type: 'meat', cost: 20 },
+        { name: "salmon", type: 'fish', cost: 30 },
+        { name: "tuna", type: 'fish', cost: 35 },
+        { name: "chocolate", type: 'candy', cost: 10 },
+        { name: "biscuit", type: 'candy', cost: 10 }
       ]
     }
   }
 }
 </script>
 
-
 <style>
 .inventory-wrapper {
   display: flex;
-  width: 400px;
+  width: 500px;
   height: 100px;
   border: 1px solid #aaaaaa;
   margin: auto;
 }
 
-.play-container {
-  width: 150px;
-  height: 150px;
-  margin: 15px;
-  padding: 10px;
-  border: 1px solid #aaaaaa;
-  margin: auto;
-  text-align: center;
-}
-
-.feed-container {
+.drop-container {
   width: 150px;
   height: 150px;
   margin: 15px;
@@ -100,3 +101,4 @@ export default {
   cursor: pointer;
 }
 </style>
+

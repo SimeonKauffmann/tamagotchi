@@ -4,6 +4,7 @@ import First from './views/First.vue'
 import Inventory from './views/ToyInventory.vue'
 import Food from './views/FoodInventory.vue'
 import Create from './views/Create.vue'
+import Testinventory from './views/TestInventory.vue'
 
 
 
@@ -31,6 +32,11 @@ export default new Router({
       path: '/create',
       name: 'create',
       component: Create
-    }
+    },
+    {
+      path: '/test',
+      name: 'test',
+      component: Testinventory
+  }
   ]
 })

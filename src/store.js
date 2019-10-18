@@ -88,8 +88,7 @@ export default new Vuex.Store({
           if (fun + this.state.happy > 100){this.state.happy = 100} else {this.state.happy += fun}
           this.state.credits += ((fun * this.state.happy)/100)
           this.state.hunger -= fun
-        }
-        
+        }       
       },
     Sleep() {
       if (this.state.time24 < 6 || this.state.time24 > 22) {

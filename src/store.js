@@ -41,25 +41,25 @@ export default new Vuex.Store({
       this.state.happy += 1
       this.state.credits += 1
     },
-    // Feed(state, cost) {
-    //   if(state.credits < cost){
-    //     alert('You cant afford that')
-    //   } else {
-    //     this.state.credits-= cost
-    //     let a = Math.floor(Math.random()*3)
-    //     console.log(a)
-    //     if(a === 3){
-    //       alert("Oh no! You fed the tamagotchi rotten food!")
-    //       setInterval(function(){this.state.poops.push([Math.floor(Math.random() * 100), Math.floor(Math.random() * 100)], 500)})
-    //       setTimeout(clearInterval(), 30000)
-    //       if(this.state.happy >= 60){this.state.happy-= 60}else{this.state.happy = 0}
-    //       if(this.state.hunger >= 60){this.state.hunger-= 60}else{this.state.hunger = 0}
-    //     } else {
-    //       if(this.state.happy + 20 > 100){this.state.happy = 100}else{this.state.happy += 20}
-    //       if(this.state.hunger + cost > 100){this.state.hunger = 100}else{this.state.hunger += cost}
-    //     }
-    //   }
-    // },
+     Feed(state, cost) {
+       if(state.credits < cost){
+         alert('You cant afford that')
+       } else {
+         state.credits-= cost
+         let a = Math.floor(Math.random()*4)
+         console.log('shits variable' + a)
+         if(a === 3){
+           alert("Oh no! You fed the tamagotchi rotten food!")
+           let theShits = setInterval(function(){state.poops.push([Math.floor(Math.random() * 100), Math.floor(Math.random() * 100)], 500)})
+           setTimeout(clearInterval(theShits), 30000)
+           if(state.happy >= 60){state.happy-= 60}else{state.happy = 0}
+           if(state.hunger >= 60){state.hunger-= 60}else{state.hunger = 0}
+         } else {
+           if(state.happy + 20 > 100){state.happy = 100}else{state.happy += 20}
+           if(state.hunger + cost > 100){state.hunger = 100}else{state.hunger += cost}
+         }
+       }
+     },
     // Play() {
     //     if(this.state.hunger = 0){
     //       alert(this.state.petName + ', is too hungry')
@@ -70,7 +70,7 @@ export default new Vuex.Store({
     //     }
         
     //   },
-    Feed(state, cost) {
+    /*Feed(state, cost) {
       if(state.credits < cost){
         alert('You cant afford that')
       } else {
@@ -80,8 +80,7 @@ export default new Vuex.Store({
           if(this.state.hunger + cost > 100){this.state.hunger = 100}else{this.state.hunger += cost}
       }
     }
-      console.log(this.state.hunger)
-    },
+    },*/
       Play(state, fun) {
         if(state.hunger < 10){
           alert(this.state.petName + ', is too hungry')

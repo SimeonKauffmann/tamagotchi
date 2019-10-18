@@ -15,7 +15,7 @@ export default new Vuex.Store({
     poopDisplay: 'block',
     poops: [],
     poopsNumber: 0,
-    happy: 50,
+    happy: 100,
     hunger: 100
   },
   mutations: {
@@ -23,15 +23,16 @@ export default new Vuex.Store({
       this.state.petName = value
       localStorage.setItem('petName', value)
     },
-    addTime() {
+    startGame() {
       localStorage.setItem('timeThen', this.state.timeNow)
-    },
-    addPoop() {
       this.state.poopsNumber = Number(this.state.timeNow) - Number(this.state.timeThen)
       for (let i = 0; i <= this.state.poopsNumber; i++) {
         this.state.poops.push([Math.floor(Math.random() * 100), Math.floor(Math.random() * 100)])
         if(this.state.hunger > 0){
           this.state.hunger -= 1
+        }
+        if(this.state.hunger < 30){
+          if(this.state.happy > 0){this.state.happy -= 1}
         }
       }
     },

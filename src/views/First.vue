@@ -20,10 +20,8 @@ export default {
     if (localStorage.getItem("petName") === null) {
       this.$router.push({ name: "create" })
     } else {
-      this.$store.commit("addTime")
+      this.$store.commit("startGame")
     }
-
-    this.$store.commit("addPoop")
   },
   computed: {},
   name: "first",

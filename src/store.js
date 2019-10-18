@@ -59,14 +59,24 @@ export default new Vuex.Store({
         }
       }
     },
-    Play() {
-        if(this.state.hunger = 0){
+    // Play() {
+    //     if(this.state.hunger = 0){
+    //       alert(this.state.petName + ', is too hungry')
+    //     } else {
+    //       let a = Math.floor(Math.random()*40)
+    //       if (a + this.state.happy > 100){this.state.happy = 100} else {this.state.happy += a}
+    //       this.state.credits += ((a * this.state.happy)/100)
+    //     }
+        
+    //   },
+      Play(state, fun) {
+        if(state.hunger === 0){
           alert(this.state.petName + ', is too hungry')
         } else {
-          let a = Math.floor(Math.random()*40)
-          if (a + this.state.happy > 100){this.state.happy = 100} else {this.state.happy += a}
-          this.state.credits += ((a * this.state.happy)/100)
+          if (fun + this.state.happy > 100){this.state.happy = 100} else {this.state.happy += fun}
+          this.state.credits += ((fun * this.state.happy)/100)
         }
+        this.state.hunger -= fun
         
       },
     Sleep() {

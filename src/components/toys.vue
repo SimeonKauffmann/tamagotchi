@@ -56,7 +56,7 @@ export default {
       toy: null,
       toys: [
         { name: "ball", funLevel: 2 },
-        { name: "rubber duck", funLevel: 5 },
+        { name: "rubber duck", funLevel: 10 },
         { name: "stick", funLevel: 3 },
         { name: "rock", funLevel: 1 }
       ]

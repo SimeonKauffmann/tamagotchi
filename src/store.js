@@ -42,10 +42,6 @@ export default new Vuex.Store({
       this.state.credits += 1
     },
      Feed(state, cost) {
-       if(state.credits < cost){
-         alert('You cant afford that')
-       } else {
-         state.credits-= cost
          let a = Math.floor(Math.random()*4)
          console.log('shits variable' + a)
          if(a === 3){
@@ -58,8 +54,12 @@ export default new Vuex.Store({
            if(state.happy + 20 > 100){state.happy = 100}else{state.happy += 20}
            if(state.hunger + cost > 100){state.hunger = 100}else{state.hunger += cost}
          }
-       }
      },
+     buyFood(state, cost) {
+        state.credits -= cost
+    },
+
+
     // Play() {
     //     if(this.state.hunger = 0){
     //       alert(this.state.petName + ', is too hungry')

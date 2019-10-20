@@ -65,7 +65,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .inventory-wrapper {
   display: flex;
   width: 400px;

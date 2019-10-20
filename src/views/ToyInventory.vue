@@ -10,7 +10,7 @@ import Toys from "@/components/toys.vue"
 import first from "@/views/First.vue"
 
 export default {
-  name: "inventory",
+  name: "inventoryy",
   components: {
     Toys,
     first

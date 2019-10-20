@@ -16,7 +16,13 @@ export default new Vuex.Store({
     poops: [],
     poopsNumber: 0,
     happy: 100,
-    hunger: 100
+    hunger: 100,
+    foods: [
+      { name: "chicken", type: 'meat', cost: 1 },
+      { name: "steak", type: 'meat', cost: 20 },
+      { name: "salmon", type: 'fish', cost: 30 },
+      { name: "tuna", type: 'fish', cost: 35 },
+    ],
   },
   mutations: {
     setPet(value) {

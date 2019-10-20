@@ -10,8 +10,8 @@
     <div class="inventory-wrapper">
       <div
         class="food"
-        v-for="food in foods"
-        v-on:dragstart="foodDrag(food, $event)"
+        v-for="food in $store.state.foods"
+        v-on:dragstart="foodDrag(food)"
         v-on:drag="dragging"
         draggable="true"
         :id="food.name"
@@ -21,7 +21,7 @@
       <div
         class="candy"
         v-for="candy in candies"
-        v-on:dragstart="candyDrag(candy, $event)"
+        v-on:dragstart="candyDrag(candy)"
         v-on:drag="dragging"
         draggable="true"
         :id="candy.name"
@@ -31,7 +31,7 @@
       <div
         class="toy"
         v-for="toy in toys"
-        v-on:dragstart="toyDrag(toy, $event)"
+        v-on:dragstart="toyDrag(toy)"
         v-on:drag="dragging"
         draggable="true"
         :id="toy.name"
@@ -71,19 +71,19 @@ export default {
   name: "items",
 
   methods: {
-    toyDrag(toy, event) {
+    toyDrag(toy) {
       this.toy = toy
     },
-    foodDrag(food, event) {
+    foodDrag(food) {
       this.food = food
     },
-    candyDrag(candy, event) {
+    candyDrag(candy) {
       this.candy = candy
     },
     buyFood(storeFood) {
       this.storeFood = storeFood
       if(this.$store.state.credits >= this.storeFood.cost) {
-      this.foods.push(this.storeFood)
+      this.$store.state.foods.push(this.storeFood)
       this.$store.commit("buyFood", this.storeFood.cost)
       } else {
         alert('Not enough money')
@@ -98,7 +98,7 @@ export default {
         alert('Not enough money')
       }
     },
-    buyToy(storeToy, event) {
+    buyToy(storeToy) {
       this.storeToy = storeToy
       if(this.$store.state.credits >= this.storeToy.cost) {
       this.toys.push(this.storeToy)

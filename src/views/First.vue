@@ -1,8 +1,7 @@
 <template>
-  <div>
-    <something></something>
-    <h2>{{$store.state.petName}}</h2>
+  <div class="pet-wrapper">
     <feel />
+    <something />
     <poop
       class="poop"
       v-for="poop in $store.state.poops"
@@ -32,3 +31,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.pet-wrapper {
+  display: flex;
+}
+</style>

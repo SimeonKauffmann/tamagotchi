@@ -154,6 +154,23 @@ export default new Vuex.Store({
         alert("Not enough money")
       }
     },
+    removeFood(state, index) {
+      state.foods.splice(index, 1)
+      console.log(index)
+    },
+    removeCandy(state, index) {
+      state.candies.splice(index, 1)
+      console.log(index)
+    },
+    removeToy(state, index) {
+      state.toys.splice(index, 1)
+      console.log(index)
+    },
+    timeStuff() {
+      setInterval(() => {
+        console.log('hej')
+      }, 3000)
+    },
 
 
     // Play() {

@@ -11,8 +11,9 @@
       <div class="inventory-wrapper">
         <div
           class="food"
-          v-for="food in $store.state.foods"
-          v-on:dragstart="foodDrag(food)"
+          v-for="(food, index) in $store.state.foods"
+          :key="index"
+          v-on:dragstart="foodDrag(food, index)"
           v-on:drag="dragging"
           draggable="true"
           :id="food.name"
@@ -21,8 +22,9 @@
       <div class="inventory-wrapper">
         <div
           class="candy"
-          v-for="candy in $store.state.candies"
-          v-on:dragstart="candyDrag(candy)"
+          v-for="(candy, index) in $store.state.candies"
+          :key="index"
+          v-on:dragstart="candyDrag(candy, index)"
           v-on:drag="dragging"
           draggable="true"
           :id="candy.name"
@@ -31,8 +33,9 @@
       <div class="inventory-wrapper">
         <div
           class="toy"
-          v-for="toy in $store.state.toys"
-          v-on:dragstart="toyDrag(toy)"
+          v-for="(toy, index) in $store.state.toys"
+          :key="index"
+          v-on:dragstart="toyDrag(toy, index)"
           v-on:drag="dragging"
           draggable="true"
           :id="toy.name"
@@ -44,18 +47,21 @@
       <div class="buy-category">
         <button
           v-for="storeFood in storeFoods"
+          :key="storeFood.name"
           v-on:click="buyFood(storeFood)"
         >{{storeFood.name}}, {{storeFood.cost}} $</button>
       </div>
       <div class="buy-category">
         <button
           v-for="storeCandy in storeCandies"
+          :key="storeCandy.name"
           v-on:click="buyCandy(storeCandy)"
         >{{storeCandy.name}}, {{storeCandy.cost}} $</button>
       </div>
       <div class="buy-category">
         <button
           v-for="storeToy in storeToys"
+          :key="storeToy.name"
           v-on:click="buyToy(storeToy)"
         >{{storeToy.name}}, {{storeToy.cost}} $</button>
       </div>
@@ -68,14 +74,17 @@ export default {
   name: "items",
 
   methods: {
-    toyDrag(toy) {
+    toyDrag(toy, index) {
       this.toy = toy
+      this.index = index
     },
-    foodDrag(food) {
+    foodDrag(food, index) {
       this.food = food
+      this.index = index
     },
-    candyDrag(candy) {
+    candyDrag(candy, index) {
       this.candy = candy
+      this.index = index
     },
     buyFood(storeFood) {
       this.$store.commit("buyFood", storeFood)
@@ -101,13 +110,16 @@ export default {
         if (this.food) {
           this.drops.push({ name: this.food.name })
           this.$store.commit("Feed", this.food.cost)
+          this.$store.commit("removeFood", this.index)
           console.log(this.food.name)
         } else if (this.toy) {
           this.drops.push({ name: this.toy.name })
           this.$store.commit("Play", this.toy.funLevel)
+          this.$store.commit("removeToy", this.index)
           console.log(this.toy.name)
         } else {
           this.drops.push({ name: this.candy.name })
+          this.$store.commit("removeCandy", this.index)
         }
       }
       this.food = null

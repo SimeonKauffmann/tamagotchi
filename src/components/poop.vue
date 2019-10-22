@@ -20,6 +20,10 @@
   margin: 30px;
   position: absolute;
 }
+.poop:hover {
+  cursor: pointer;
+}
+
 .poop-gone {
   display: none;
 }

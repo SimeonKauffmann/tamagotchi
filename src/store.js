@@ -78,21 +78,21 @@ export default new Vuex.Store({
       this.state.petName = value
       localStorage.setItem('petName', value)
     },
-    // startGame() {
-    //   localStorage.setItem('timeThen', this.state.timeNow)
-    //   this.state.poopsNumber = Number(this.state.timeNow) - Number(this.state.timeThen)
-    //   for (let i = 0; i <= this.state.poopsNumber; i++) {
-    //     this.state.poops.push([Math.floor(Math.random() * 100), Math.floor(Math.random() * 100)])
-    //     if (this.state.hunger > 0) {
-    //       this.state.hunger -= 1
-    //     }
-    //     if (this.state.hunger < 30) {
-    //       if (this.state.happy > 0) {
-    //         this.state.happy -= 1
-    //       }
-    //     }
-    //   }
-    // },
+    startGame() {
+      localStorage.setItem('timeThen', this.state.timeNow)
+      this.state.poopsNumber = Number(this.state.timeNow) - Number(this.state.timeThen)
+      for (let i = 0; i <= this.state.poopsNumber; i++) {
+        this.state.poops.push([Math.floor(Math.random() * 100), Math.floor(Math.random() * 100)])
+        if (this.state.hunger > 0) {
+          this.state.hunger -= 1
+        }
+        if (this.state.hunger < 30) {
+          if (this.state.happy > 0) {
+            this.state.happy -= 1
+          }
+        }
+      }
+    },
     poopRemove(state, index) {
       state.poops.splice(index, 1)
       state.credits += 1

@@ -35,6 +35,11 @@ export default {
   name: "App",
   created() {
     this.$store.dispatch("timeStuff")
+    if (localStorage.getItem("petName") === null) {
+      this.$router.push({ name: "create" })
+    } else {
+      this.$store.commit("startGame")
+    }
   }
 }
 </script>

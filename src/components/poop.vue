@@ -1,6 +1,6 @@
 <template>
     
-    <div v-on:click="$store.commit('poopGone')" >
+    <div v-on:mouseover="$store.commit('poopGone', $event)" >
     </div>
     
 </template>

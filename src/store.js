@@ -78,32 +78,32 @@ export default new Vuex.Store({
       this.state.petName = value
       localStorage.setItem('petName', value)
     },
-    startGame() {
-      localStorage.setItem('timeThen', this.state.timeNow)
-      this.state.poopsNumber = Number(this.state.timeNow) - Number(this.state.timeThen)
-      for (let i = 0; i <= this.state.poopsNumber; i++) {
-        this.state.poops.push([Math.floor(Math.random() * 100), Math.floor(Math.random() * 100)])
-        if (this.state.hunger > 0) {
-          this.state.hunger -= 1
-        }
-        if (this.state.hunger < 30) {
-          if (this.state.happy > 0) {
-            this.state.happy -= 1
-          }
-        }
-      }
-    },
-    poopGone() { // den här funkar inte som det ska...
-      this.state.poopDisplay = 'none'
-      this.state.happy += 1
-      this.state.credits += 1
+    // startGame() {
+    //   localStorage.setItem('timeThen', this.state.timeNow)
+    //   this.state.poopsNumber = Number(this.state.timeNow) - Number(this.state.timeThen)
+    //   for (let i = 0; i <= this.state.poopsNumber; i++) {
+    //     this.state.poops.push([Math.floor(Math.random() * 100), Math.floor(Math.random() * 100)])
+    //     if (this.state.hunger > 0) {
+    //       this.state.hunger -= 1
+    //     }
+    //     if (this.state.hunger < 30) {
+    //       if (this.state.happy > 0) {
+    //         this.state.happy -= 1
+    //       }
+    //     }
+    //   }
+    // },
+    poopRemove(state, index) {
+      state.poops.splice(index, 1)
+      state.credits += 1
+      state.happy += 1
     },
     Feed(state, cost) {
       let a = Math.floor(Math.random() * 4)
       console.log('shits variable' + a)
       if (a === 3) {
         alert("Oh no! You fed the tamagotchi rotten food!")
-        let theShits = setInterval(function () {
+        let theShits = setInterval(function() {
           state.poops.push([Math.floor(Math.random() * 100), Math.floor(Math.random() * 100)], 500)
         })
         setTimeout(clearInterval(theShits), 30000)
@@ -166,11 +166,6 @@ export default new Vuex.Store({
       state.toys.splice(index, 1)
       console.log(index)
     },
-    timeStuff() {
-      setInterval(() => {
-        console.log('hej')
-      }, 3000)
-    },
 
 
     // Play() {
@@ -211,11 +206,28 @@ export default new Vuex.Store({
       if (this.state.time24 < 6 || this.state.time24 > 22) {
         this.state.petSleep = true
       }
+    },
+    updateMood(state) {
+      state.happy -= 1
+      state.hunger -= 1
+      state.credits += 1
+    },
+    updatePoop(state) {
+      state.poops.push([Math.floor(Math.random() * 100), Math.floor(Math.random() * 100)])
+      state.hunger -= 2
     }
 
   },
   actions: {
-
-
+    timeStuff({ commit }) {
+      setInterval(() => {
+        commit('updateMood')
+        console.log('moodstatus')
+      }, 5000)
+      setInterval(() => {
+        commit('updatePoop')
+        console.log('poopstatus')
+      }, 10000)
+    },
   }
 })

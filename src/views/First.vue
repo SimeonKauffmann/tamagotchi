@@ -2,11 +2,7 @@
   <div class="pet-wrapper">
     <feel />
     <something />
-    <poop
-      class="poop"
-      v-for="poop in $store.state.poops"
-      v-bind:style="{ top: poop[0] + '%', left: poop[1] + '%', display: $store.state.poopDisplay}"
-    />
+    <poop />
   </div>
 </template>
 <script>

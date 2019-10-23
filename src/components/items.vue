@@ -113,10 +113,14 @@ export default {
           this.$store.commit("removeFood", this.index)
           console.log(this.food.name)
         } else if (this.toy) {
+          if(this.$store.state.hunger > 10) {
           this.drops.push({ name: this.toy.name })
           this.$store.commit("Play", this.toy.funLevel)
           this.$store.commit("removeToy", this.index)
           console.log(this.toy.name)
+          } else {
+            alert(this.$store.state.petName + ' is too hungry to play.')
+          }
         } else {
           this.drops.push({ name: this.candy.name })
           this.$store.commit("removeCandy", this.index)
@@ -135,16 +139,16 @@ export default {
       candy: null,
       drops: [],
       storeFoods: [
-        { name: "chicken", type: "meat", cost: 1 },
-        { name: "steak", type: "meat", cost: 20 },
-        { name: "salmon", type: "fish", cost: 30 },
-        { name: "tuna", type: "fish", cost: 35 }
+        { name: "chicken", type: "meat", cost: 5 },
+        { name: "steak", type: "meat", cost: 10 },
+        { name: "salmon", type: "fish", cost: 20 },
+        { name: "tuna", type: "fish", cost: 30 }
       ],
       storeToys: [
         { name: "ball", funLevel: 2, cost: 1 },
         { name: "rubber-duck", funLevel: 10, cost: 5 },
-        { name: "stick", funLevel: 3, cost: 10 },
-        { name: "rock", funLevel: 1, cost: 15 }
+        { name: "stick", funLevel: 20, cost: 10 },
+        { name: "rock", funLevel: 30, cost: 15 }
       ],
       storeCandies: [
         { name: "chocolate", happyLevel: 1, cost: 1 },

@@ -2,12 +2,11 @@
   <div>
     <div class="drop-wrapper">
       <div class="drop-container" v-on:drop="drop" v-on:dragover="allowDrop">
-        Drop stuff here
-        <div class="toy" :id="drops[0].name" v-for="drop in drops" :key="drop.name">{{drop.name}}</div>
+        Give item:
+        <div class="drops" :id="drops[0].name" v-for="drop in drops" :key="drop.name">{{drop.symbol}}</div>
       </div>
     </div>
     <div class="inventory">
-      Food:
       <div class="inventory-wrapper">
         <div
           class="food"
@@ -17,8 +16,8 @@
           v-on:drag="dragging"
           draggable="true"
           :id="food.name"
-        >{{food.name}}</div>
-      </div>Candy:
+        >{{food.symbol}} </div>
+      </div>
       <div class="inventory-wrapper">
         <div
           class="candy"
@@ -28,8 +27,8 @@
           v-on:drag="dragging"
           draggable="true"
           :id="candy.name"
-        >{{candy.name}}</div>
-      </div>Toys:
+        >{{candy.symbol}}</div>
+      </div>
       <div class="inventory-wrapper">
         <div
           class="toy"
@@ -39,7 +38,7 @@
           v-on:drag="dragging"
           draggable="true"
           :id="toy.name"
-        >{{toy.name}}</div>
+        >{{toy.symbol}}</div>
       </div>
     </div>
     <div class="buy-container">
@@ -105,16 +104,16 @@ export default {
       event.preventDefault()
       setTimeout(() => {
         this.drops.shift()
-      }, 3000)
+      }, 2000)
       if (this.drops.length === 0) {
         if (this.food) {
-          this.drops.push({ name: this.food.name })
+          this.drops.push({ symbol: this.food.symbol })
           this.$store.commit("Feed", this.food.cost)
           this.$store.commit("removeFood", this.index)
           console.log(this.food.name)
         } else if (this.toy) {
           if(this.$store.state.hunger > 10) {
-          this.drops.push({ name: this.toy.name })
+          this.drops.push({ symbol: this.toy.symbol })
           this.$store.commit("Play", this.toy.funLevel)
           this.$store.commit("removeToy", this.index)
           console.log(this.toy.name)
@@ -122,7 +121,7 @@ export default {
             alert(this.$store.state.petName + ' is too hungry to play.')
           }
         } else {
-          this.drops.push({ name: this.candy.name })
+          this.drops.push({ symbol: this.candy.symbol })
           this.$store.commit("removeCandy", this.index)
         }
       }
@@ -139,23 +138,23 @@ export default {
       candy: null,
       drops: [],
       storeFoods: [
-        { name: "chicken", type: "meat", cost: 5 },
-        { name: "steak", type: "meat", cost: 10 },
-        { name: "salmon", type: "fish", cost: 20 },
-        { name: "tuna", type: "fish", cost: 30 }
-      ],
-      storeToys: [
-        { name: "ball", funLevel: 2, cost: 1 },
-        { name: "rubber-duck", funLevel: 10, cost: 5 },
-        { name: "stick", funLevel: 20, cost: 10 },
-        { name: "rock", funLevel: 30, cost: 15 }
+        { name: "chicken", type: "meat", cost: 5, symbol: '🍗' },
+        { name: "steak", type: "meat", cost: 10, symbol: '🍖' },
+        { name: "salmon", type: "fish", cost: 20, symbol: '🍣' },
+        { name: "tuna", type: "fish", cost: 30, symbol: '🐟' }
       ],
       storeCandies: [
-        { name: "chocolate", happyLevel: 1, cost: 1 },
-        { name: "biscuit", happyLevel: 1, cost: 5 },
-        { name: "cracker", happyLevel: 1, cost: 10 },
-        { name: "caramel", happyLevel: 1, cost: 15 }
-      ]
+        { name: "chocolate",  happyLevel: 1, cost: 2, symbol: '🍫' },
+        { name: "biscuit", happyLevel: 1, cost: 5, symbol: '🍪' },
+        { name: "cupcake", happyLevel: 1, cost: 10, symbol: '🧁' },
+        { name: "doughnut",  happyLevel: 1, cost: 15, symbol: '🍩' }
+      ],
+        storeToys: [
+        { name: "ball", funLevel: 2, cost: 1, symbol: '⚽' },
+        { name: "instrument", funLevel: 10, cost: 5, symbol: '🎺' },
+        { name: "yarn", funLevel: 20, cost: 10, symbol: '🧶' },
+        { name: "dice", funLevel: 30, cost: 15, symbol: '🎲' }
+      ],
     }
   }
 }
@@ -189,9 +188,9 @@ export default {
 .drop-container {
   width: 400px;
   height: 150px;
-  margin: 15px;
   padding: 10px;
   border: 1px solid #aaaaaa;
+  border-radius: 1.5em;
   margin: auto;
   text-align: center;
 }
@@ -200,7 +199,15 @@ export default {
   display: flex;
   width: 500px;
   margin: auto;
-  margin-bottom: 50px;
+  margin-bottom: 70px;
+}
+
+.drops {
+  font-size: 70px;
+}
+
+.food, .candy, .toy {
+  font-size: 50px;
 }
 
 .toy:hover,
@@ -209,7 +216,7 @@ export default {
   cursor: pointer;
 }
 
-#chicken {
+/* #chicken {
   margin: 10px;
   padding: 5px;
   height: 20px;
@@ -239,9 +246,9 @@ export default {
   height: 20px;
   background: red;
   color: white;
-}
+} */
 
-#ball {
+/* #ball {
   margin: 10px;
   padding: 5px;
   height: 20px;
@@ -271,9 +278,9 @@ export default {
   height: 20px;
   background: lightcoral;
   color: white;
-}
+} */
 
-#chocolate {
+/* #chocolate {
   margin: 10px;
   padding: 5px;
   height: 20px;
@@ -303,6 +310,6 @@ export default {
   height: 20px;
   background: palevioletred;
   color: white;
-}
+} */
 </style>
 

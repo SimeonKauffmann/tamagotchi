@@ -17,60 +17,23 @@ export default new Vuex.Store({
     poopsNumber: 0,
     happy: 100,
     hunger: 100,
-    foods: [{
-        name: "chicken",
-        type: 'meat',
-        cost: 5
-      },
-      {
-        name: "steak",
-        type: 'meat',
-        cost: 10
-      },
-      {
-        name: "salmon",
-        type: 'fish',
-        cost: 20
-      },
-      {
-        name: "tuna",
-        type: 'fish',
-        cost: 30
-      },
+    foods: [
+      { name: "chicken", type: 'meat', cost: 5, symbol: '🍗' },
+      { name: "steak", type: 'meat', cost: 10, symbol: '🍖' },
+      { name: "salmon", type: 'fish', cost: 20, symbol: '🍣' },
+      { name: "tuna", type: 'fish', cost: 30, symbol: '🐟'},
     ],
-    candies: [{
-        name: "chocolate",
-        happyLevel: 1
-      },
-      {
-        name: "biscuit",
-        happyLevel: 1
-      },
-      {
-        name: "cracker",
-        happyLevel: 1
-      },
-      {
-        name: "caramel",
-        happyLevel: 1
-      }
+    candies: [
+      { name: "chocolate",  happyLevel: 1, cost: 2, symbol: '🍫' },
+      { name: "biscuit", happyLevel: 1, cost: 5, symbol: '🍪' },
+      { name: "cupcake", happyLevel: 1, cost: 10, symbol: '🧁' },
+      { name: "doughnut",  happyLevel: 1, cost: 15, symbol: '🍩' }
     ],
-    toys: [{
-        name: "ball",
-        funLevel: 2
-      },
-      {
-        name: "rubber-duck",
-        funLevel: 10
-      },
-      {
-        name: "stick",
-        funLevel: 3
-      },
-      {
-        name: "rock",
-        funLevel: 1
-      }
+    toys: [
+      { name: "ball", funLevel: 2, cost: 1, symbol: '⚽' },
+      { name: "instrument", funLevel: 10, cost: 5, symbol: '🎺' },
+      { name: "yarn", funLevel: 20, cost: 10, symbol: '🧶' },
+      { name: "dice", funLevel: 30, cost: 15, symbol: '🎲' }
     ],
   },
   mutations: {

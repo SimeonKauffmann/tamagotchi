@@ -27,8 +27,8 @@ export default new Vuex.Store({
       localStorage.setItem('hunger', 50)
       localStorage.setItem('happy', 50)
       localStorage.setItem('credits', 0)
-      localStorage.setItem('food', JSON.stringify([{ name: "chicken", type: "meat", cost: 5, symbol: "🍗" }]))
-      localStorage.setItem('candy', JSON.stringify([{ name: "chocolate", happyLevel: 1, cost: 2, symbol: "🍫" }]))
+      localStorage.setItem('foods', JSON.stringify([{ name: "chicken", type: "meat", cost: 5, symbol: "🍗" }]))
+      localStorage.setItem('candies', JSON.stringify([{ name: "chocolate", happyLevel: 1, cost: 2, symbol: "🍫" }]))
       localStorage.setItem('toys', JSON.stringify([{ name: "ball", funLevel: 2, cost: 1, symbol: "⚽" }]))
       localStorage.setItem('timeThen', Math.floor((new Date().getTime()) / 60000))
     },

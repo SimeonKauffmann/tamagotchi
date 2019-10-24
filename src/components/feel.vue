@@ -4,11 +4,11 @@
     <div id="credits">{{'Galactic Credits: ' + $store.state.credits}}</div>
     <p>Happiness</p>
     <div id="happy-bar">
-      <div id="happy-meter" v-bind:style="{width: $store.state.happy + 'px'}"></div>
+      <div id="happy-meter" v-bind:style="{width: $store.state.happy + 'px'}">{{$store.state.happy}}</div>
     </div>
     <p>Hunger</p>
     <div id="hunger-bar">
-      <div id="hunger-meter" v-bind:style="{width: $store.state.hunger + 'px'}"></div>
+      <div id="hunger-meter" v-bind:style="{width: $store.state.hunger + 'px'}">{{$store.state.hunger}}</div>
     </div>
   </div>
 </template>
@@ -31,12 +31,14 @@
   height: 20px;
   border: 2px solid green;
   border-radius: 12px;
+  text-align: center;
 }
 
 #happy-meter {
   height: 20px;
   background-color: lightblue;
   border-radius: 12px;
+  text-align: center;
 }
 
 #hunger-meter {

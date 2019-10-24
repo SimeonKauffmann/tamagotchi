@@ -6,7 +6,7 @@
       v-bind:style="{ top: poop[0] + '%', left: poop[1] + '%', display: $store.state.poopDisplay}"
       v-on:click="poopClick(index)"
       :key="index"
-    ></div>
+    ><span id="poopi">&#9832;</span></div>
   </div>
 </template>
 
@@ -14,19 +14,17 @@
 .poop {
   top: 0%;
   left: 0%;
-  height: 30px;
-  width: 50px;
-  background-color: brown;
   margin: 30px;
   position: absolute;
 }
 .poop:hover {
   cursor: pointer;
 }
-
-.poop-gone {
-  display: none;
+#poopi {
+  font-size: 5em;
+  color: brown;
 }
+
 </style>
 
 <script type="text/javascript" src="">
@@ -35,8 +33,8 @@ export default {
   computed: {},
   methods: {
     poopClick(index) {
-      this.index = index
       console.log("Removing poop")
+      console.log(index)
       this.$store.commit("poopRemove", index)
     }
   }

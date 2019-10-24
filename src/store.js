@@ -20,13 +20,17 @@ export default new Vuex.Store({
     foods: JSON.parse(localStorage.getItem("foods") || "[]"),
     candies: JSON.parse(localStorage.getItem("candies") || "[]"),
     toys: JSON.parse(localStorage.getItem("toys") || "[]"),
+    food: null,
+    candy: null,
+    toy: null,
+    index: null
   },
   mutations: {
     setPet(state) {
       localStorage.setItem('petName', state.Name)
-      localStorage.setItem('hunger', 50)
-      localStorage.setItem('happy', 50)
-      localStorage.setItem('credits', 0)
+      localStorage.setItem('hunger', 100)
+      localStorage.setItem('happy', 100)
+      localStorage.setItem('credits', 200)
       localStorage.setItem('foods', JSON.stringify([{ name: "chicken", type: "meat", cost: 5, symbol: "🍗" }]))
       localStorage.setItem('candies', JSON.stringify([{ name: "chocolate", happyLevel: 1, cost: 2, symbol: "🍫" }]))
       localStorage.setItem('toys', JSON.stringify([{ name: "ball", funLevel: 2, cost: 1, symbol: "⚽" }]))
@@ -99,10 +103,10 @@ export default new Vuex.Store({
         } else {
           state.happy += 20
         }
-        if (state.hunger + cost > 100) {
+        if (state.hunger + state.food.cost > 100) {
           state.hunger = 100
         } else {
-          state.hunger += cost
+          state.hunger += state.food.cost
         }
       }
     },
@@ -142,27 +146,15 @@ export default new Vuex.Store({
         alert("Not enough money")
       }
     },
-    removeFood(state, index) {
-      state.foods.splice(index, 1)
-      console.log(index)
-    },
-    removeCandy(state, index) {
-      state.candies.splice(index, 1)
-      console.log(index)
-    },
-    removeToy(state, index) {
-      state.toys.splice(index, 1)
-      console.log(index)
-    },
-
-    Play(state, fun) {
-      if (fun + this.state.happy > 100) {
+    Play(state) {
+      console.log(state.toy.funLevel)
+      if (state.toy.funLevel + state.happy > 100) {
         state.happy = 100
       } else {
-        state.happy += fun
+        state.happy += state.toy.funLevel
       }
-      state.credits += Math.floor((fun * this.state.happy) / 100)
-      state.hunger -= fun
+      state.credits += Math.floor((state.toy.funLevel * state.happy) / 100)
+      state.hunger -= state.toy.funLevel
     },
     Sleep() {
       if (this.state.time24 < 6 || this.state.time24 > 22) {
@@ -193,8 +185,33 @@ export default new Vuex.Store({
       } else {
       state.hunger -= 2
       }
+    },
+    foodDrag(state, {food, index}) {
+      state.food = food
+      state.index = index
+    },
+    candyDrag(state, {candy, index}) {
+      state.candy = candy
+      state.index = index
+    },
+    toyDrag(state, {toy, index}) {
+      state.toy = toy
+      state.index = index
+    },
+    removeFood(state) {
+      state.foods.splice(state.index, 1)
+    },
+    removeCandy(state) {
+      state.candies.splice(state.index, 1)
+    },
+    removeToy(state) {
+      state.toys.splice(state.index, 1)
+    },
+    resetItems(state) {
+      state.food = null
+      state.candy = null
+      state.toy = null
     }
-
   },
   actions: {
     timeStuff({ commit }) {

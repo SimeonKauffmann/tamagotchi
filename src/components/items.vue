@@ -1,23 +1,13 @@
 <template>
   <div>
-    <div class="drop-wrapper">
-      <div class="drop-container" v-on:drop="drop" v-on:dragover="allowDrop">
-        Give item:
-        <div
-          class="drops"
-          :id="drops[0].name"
-          v-for="drop in drops"
-          :key="drop.name"
-        >{{drop.symbol}}</div>
-      </div>
-    </div>
+    <dropzone />
     <div class="inventory">
       <div class="inventory-wrapper">
         <div
           class="food"
           v-for="(food, index) in $store.state.foods"
           :key="index"
-          v-on:dragstart="foodDrag(food, index)"
+          v-on:dragstart="$store.commit('foodDrag', {food, index})"
           v-on:drag="dragging"
           draggable="true"
           :id="food.name"
@@ -28,7 +18,7 @@
           class="candy"
           v-for="(candy, index) in $store.state.candies"
           :key="index"
-          v-on:dragstart="candyDrag(candy, index)"
+          v-on:dragstart="$store.commit('candyDrag', {candy, index})"
           v-on:drag="dragging"
           draggable="true"
           :id="candy.name"
@@ -39,7 +29,7 @@
           class="toy"
           v-for="(toy, index) in $store.state.toys"
           :key="index"
-          v-on:dragstart="toyDrag(toy, index)"
+          v-on:dragstart="$store.commit('toyDrag', {toy, index})"
           v-on:drag="dragging"
           draggable="true"
           :id="toy.name"
@@ -54,21 +44,21 @@
             v-for="storeFood in storeFoods"
             :key="storeFood.name"
             v-on:click="buyFood(storeFood)"
-          >{{storeFood.name}}, {{storeFood.cost}} $</button>
+          >{{storeFood.symbol}} {{storeFood.cost}} $</button>
         </div>
         <div class="buy-category">
           <button
             v-for="storeCandy in storeCandies"
             :key="storeCandy.name"
             v-on:click="buyCandy(storeCandy)"
-          >{{storeCandy.name}}, {{storeCandy.cost}} $</button>
+          >{{storeCandy.symbol}} {{storeCandy.cost}} $</button>
         </div>
         <div class="buy-category">
           <button
             v-for="storeToy in storeToys"
             :key="storeToy.name"
             v-on:click="buyToy(storeToy)"
-          >{{storeToy.name}}, {{storeToy.cost}} $</button>
+          >{{storeToy.symbol}} {{storeToy.cost}} $</button>
         </div>
       </div>
     </div>
@@ -76,22 +66,15 @@
 </template>
 
 <script>
+import dropzone from "@/components/dropzone.vue"
+
 export default {
   name: "items",
+  components: {
+    dropzone
+  },
 
   methods: {
-    toyDrag(toy, index) {
-      this.toy = toy
-      this.index = index
-    },
-    foodDrag(food, index) {
-      this.food = food
-      this.index = index
-    },
-    candyDrag(candy, index) {
-      this.candy = candy
-      this.index = index
-    },
     buyFood(storeFood) {
       this.$store.commit("buyFood", storeFood)
     },
@@ -103,46 +86,10 @@ export default {
     },
     dragging() {
       console.log("dragging")
-    },
-    allowDrop(event) {
-      event.preventDefault()
-    },
-    drop(event) {
-      event.preventDefault()
-      setTimeout(() => {
-        this.drops.shift()
-      }, 2000)
-      if (this.drops.length === 0) {
-        if (this.food) {
-          this.drops.push({ symbol: this.food.symbol })
-          this.$store.commit("Feed", this.food.cost)
-          this.$store.commit("removeFood", this.index)
-          console.log(this.food.name)
-        } else if (this.toy) {
-          if (this.$store.state.hunger > 10) {
-            this.drops.push({ symbol: this.toy.symbol })
-            this.$store.commit("Play", this.toy.funLevel)
-            this.$store.commit("removeToy", this.index)
-            console.log(this.toy.name)
-          } else {
-            alert(this.$store.state.petName + " is too hungry to play.")
-          }
-        } else {
-          this.drops.push({ symbol: this.candy.symbol })
-          this.$store.commit("removeCandy", this.index)
-        }
-      }
-      this.food = null
-      this.toy = null
-      this.candy = null
-      console.log("dropped")
     }
   },
   data() {
     return {
-      toy: null,
-      food: null,
-      candy: null,
       showStore: true,
       drops: [],
       storeFoods: [
@@ -233,101 +180,5 @@ export default {
 .candy:hover {
   cursor: pointer;
 }
-
-/* #chicken {
-  margin: 10px;
-  padding: 5px;
-  height: 20px;
-  background: blue;
-  color: white;
-}
-
-#steak {
-  margin: 10px;
-  padding: 5px;
-  height: 20px;
-  background: green;
-  color: white;
-}
-
-#salmon {
-  margin: 10px;
-  padding: 5px;
-  height: 20px;
-  background: yellowgreen;
-  color: white;
-}
-
-#tuna {
-  margin: 10px;
-  padding: 5px;
-  height: 20px;
-  background: red;
-  color: white;
-} */
-
-/* #ball {
-  margin: 10px;
-  padding: 5px;
-  height: 20px;
-  background: red;
-  color: white;
-}
-
-#rubber-duck {
-  margin: 10px;
-  padding: 5px;
-  height: 20px;
-  background: burlywood;
-  color: white;
-}
-
-#stick {
-  margin: 10px;
-  padding: 5px;
-  height: 20px;
-  background: teal;
-  color: white;
-}
-
-#rock {
-  margin: 10px;
-  padding: 5px;
-  height: 20px;
-  background: lightcoral;
-  color: white;
-} */
-
-/* #chocolate {
-  margin: 10px;
-  padding: 5px;
-  height: 20px;
-  background: brown;
-  color: white;
-}
-
-#biscuit {
-  margin: 10px;
-  padding: 5px;
-  height: 20px;
-  background: grey;
-  color: white;
-}
-
-#cracker {
-  margin: 10px;
-  padding: 5px;
-  height: 20px;
-  background: lightseagreen;
-  color: white;
-}
-
-#caramel {
-  margin: 10px;
-  padding: 5px;
-  height: 20px;
-  background: palevioletred;
-  color: white;
-} */
 </style>
 

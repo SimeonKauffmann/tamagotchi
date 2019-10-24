@@ -172,11 +172,13 @@ export default {
 .inventory-wrapper {
   display: flex;
   width: 500px;
+  height: 70px;
   margin: 10px auto;
 }
 
 .inventory {
   width: 450px;
+  height: 250px;
   margin: auto;
   border: 1px solid #aaaaaa;
   padding: 5px;

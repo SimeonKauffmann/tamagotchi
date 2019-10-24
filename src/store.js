@@ -5,16 +5,22 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    shitTimer: null,
     Name: '',
-    credits: 0,
+    credits: Number(localStorage.getItem('credits')),
     timeNow: Math.floor((new Date().getTime()) / 60000),
     timeThen: localStorage.getItem('timeThen'),
     petName: localStorage.getItem('petName'),
     time24: new Date().getHours(),
     petSleep: false,
-    poopDisplay: 'block',
     poops: [],
     poopsNumber: 0,
+    /*    happy: Number(localStorage.getItem('happy')),
+        hunger: Number(localStorage.getItem('hunger')),
+        foods: JSON.parse(localStorage.getItem("foods") || "[]"),
+        candies: JSON.parse(localStorage.getItem("candies") || "[]"),
+        toys: JSON.parse(localStorage.getItem("toys") || "[]"),*/
+
     happy: 100,
     hunger: 100,
     foods: [
@@ -37,9 +43,12 @@ export default new Vuex.Store({
     ],
   },
   mutations: {
-    setPet(value) {
-      this.state.petName = value
+    setPet(state, value) {
+      state.petName = value
       localStorage.setItem('petName', value)
+      localStorage.setItem('hunger', 50)
+      localStorage.setItem('happy', 50)
+      localStorage.setItem('credits', 0)
     },
     startGame() {
       localStorage.setItem('timeThen', this.state.timeNow)
@@ -54,7 +63,18 @@ export default new Vuex.Store({
             this.state.happy -= 1
           }
         }
+        if (this.state.time24 < 6 || this.state.time24 > 22) {
+          this.state.petSleep = true
+        }
       }
+      setInterval(() => {
+        localStorage.setItem('hunger', this.state.hunger)
+        localStorage.setItem('happy', this.state.happy)
+        localStorage.setItem('credits', this.state.credits)
+        localStorage.setItem("toys", JSON.stringify(this.state.toys))
+        localStorage.setItem("candies", JSON.stringify(this.state.candies))
+        localStorage.setItem("foods", JSON.stringify(this.state.foods))
+      }, 1000)
     },
     poopRemove(state, index) {
       state.poops.splice(index, 1)
@@ -62,14 +82,11 @@ export default new Vuex.Store({
       state.happy += 1
     },
     Feed(state, cost) {
-      let a = Math.floor(Math.random() * 10)
-      console.log('shits variable' + a)
-      if (a === 3) {
-        alert("Oh no! You fed the tamagotchi rotten food!")
-        let theShits = setInterval(function() {
-          state.poops.push([Math.floor(Math.random() * 100), Math.floor(Math.random() * 100)], 500)
-        })
-        setTimeout(clearInterval(theShits), 30000)
+      let a = Math.floor(Math.random() * 3)
+      if (a === 2) {
+        alert("Oh no! You fed " + state.petName + " rotten food!")
+        state.shitTimer = setInterval(() => { state.poops.push([Math.floor(Math.random() * 100), Math.floor(Math.random() * 100)]) }, 500)
+        setTimeout(() => { clearInterval(state.shitTimer) }, 20000)
         if (state.happy >= 60) {
           state.happy -= 60
         } else {
@@ -150,6 +167,12 @@ export default new Vuex.Store({
       }
       state.credits += ((fun * this.state.happy) / 100)
       state.hunger -= fun
+    },
+
+    timeStuff() {
+      setInterval(() => {
+        console.log('hej')
+      }, 3000)
     },
     Sleep() {
       if (this.state.time24 < 6 || this.state.time24 > 22) {

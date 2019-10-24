@@ -1,7 +1,10 @@
 <template>
   <div>
-    <input type="text" v-model="Name" />
-    <input type="button" v-on:click="$store.commit('setPet', Name)" />
+    <form v-on:submit="$store.commit('setPet')">
+      <input type="text" v-model="Name"/>
+      {{ $store.state.Name }}
+      <input type="submit" />
+    </form>
   </div>
 </template>
 
@@ -10,10 +13,10 @@ export default {
   computed: {
     Name: {
       get() {
-        return this.$store.state.petName
+        return this.$store.state.Name
       },
-      set(Name) {
-        this.$store.commit("setPet", Name)
+      set(someValue) {
+        this.$store.commit('setName', Name)
       }
     }
   },

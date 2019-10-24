@@ -4,7 +4,8 @@
       <router-link to="/">Home</router-link>|
       <router-link to="/inventory">inventory</router-link>
     </div>
-    <router-view />
+    <create v-if="$store.state.petName === null" />
+    <router-view v-else />
   </div>
 </template>
 
@@ -31,15 +32,19 @@
 </style>
 
 <script>
+import Create from "@/views/Create.vue"
+
 export default {
   name: "App",
   created() {
     this.$store.dispatch("timeStuff")
-    if (localStorage.getItem("petName") === null) {
-      this.$router.push({ name: "create" })
-    } else {
+    if(this.$store.state.petName === !null){
       this.$store.commit("startGame")
-    }
+    }    
+  },
+  
+  components: {
+    Create
   }
 }
 </script>

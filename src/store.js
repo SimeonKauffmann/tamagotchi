@@ -9,51 +9,32 @@ export default new Vuex.Store({
     Name: '',
     credits: Number(localStorage.getItem('credits')),
     timeNow: Math.floor((new Date().getTime()) / 60000),
-    timeThen: localStorage.getItem('timeThen'),
+    timeThen: Number(localStorage.getItem('timeThen')),
     petName: localStorage.getItem('petName'),
     time24: new Date().getHours(),
     petSleep: false,
     poops: [],
     poopsNumber: 0,
-    /*    happy: Number(localStorage.getItem('happy')),
-        hunger: Number(localStorage.getItem('hunger')),
-        foods: JSON.parse(localStorage.getItem("foods") || "[]"),
-        candies: JSON.parse(localStorage.getItem("candies") || "[]"),
-        toys: JSON.parse(localStorage.getItem("toys") || "[]"),*/
-
-    happy: 100,
-    hunger: 100,
-    foods: [
-      { name: "chicken", type: 'meat', cost: 5, symbol: '🍗' },
-      { name: "steak", type: 'meat', cost: 10, symbol: '🍖' },
-      // { name: "salmon", type: 'fish', cost: 20, symbol: '🍣' },
-      // { name: "tuna", type: 'fish', cost: 30, symbol: '🐟' },
-    ],
-    candies: [
-      { name: "chocolate", happyLevel: 1, cost: 2, symbol: '🍫' },
-      { name: "biscuit", happyLevel: 1, cost: 5, symbol: '🍪' },
-      // { name: "cupcake", happyLevel: 1, cost: 10, symbol: '🧁' },
-      // { name: "doughnut", happyLevel: 1, cost: 15, symbol: '🍩' }
-    ],
-    toys: [
-      { name: "ball", funLevel: 2, cost: 1, symbol: '⚽' },
-      { name: "instrument", funLevel: 10, cost: 5, symbol: '🎺' },
-      // { name: "yarn", funLevel: 20, cost: 10, symbol: '🧶' },
-      // { name: "dice", funLevel: 30, cost: 15, symbol: '🎲' }
-    ],
+    happy: Number(localStorage.getItem('happy')),
+    hunger: Number(localStorage.getItem('hunger')),
+    foods: JSON.parse(localStorage.getItem("foods") || "[]"),
+    candies: JSON.parse(localStorage.getItem("candies") || "[]"),
+    toys: JSON.parse(localStorage.getItem("toys") || "[]"),
   },
   mutations: {
-    setPet(state, value) {
-      state.petName = value
-      localStorage.setItem('petName', value)
+      setPet(state) {
+      localStorage.setItem('petName', this.state.Name)
       localStorage.setItem('hunger', 50)
       localStorage.setItem('happy', 50)
       localStorage.setItem('credits', 0)
     },
     startGame() {
       localStorage.setItem('timeThen', this.state.timeNow)
+      console.log("startGame out")
+      console.log(Number(this.state.timeNow) - Number(this.state.timeThen))
       this.state.poopsNumber = Number(this.state.timeNow) - Number(this.state.timeThen)
-      for (let i = 0; i <= this.state.poopsNumber; i++) {
+      /*for (let i = 0; i <= this.state.poopsNumber; i++) {
+        console.log("startgame in")
         this.state.poops.push([Math.floor(Math.random() * 100), Math.floor(Math.random() * 100)])
         if (this.state.hunger > 0) {
           this.state.hunger -= 1
@@ -63,23 +44,23 @@ export default new Vuex.Store({
             this.state.happy -= 1
           }
         }
-        if (this.state.time24 < 6 || this.state.time24 > 22) {
+        
+      }*/
+      if (this.state.time24 < 6 || this.state.time24 > 22) {
           this.state.petSleep = true
         }
-      }
-      setInterval(() => {
-        localStorage.setItem('hunger', this.state.hunger)
-        localStorage.setItem('happy', this.state.happy)
-        localStorage.setItem('credits', this.state.credits)
-        localStorage.setItem("toys", JSON.stringify(this.state.toys))
-        localStorage.setItem("candies", JSON.stringify(this.state.candies))
-        localStorage.setItem("foods", JSON.stringify(this.state.foods))
-      }, 1000)
+    },
+    setName(state, Name){
+      state.Name = Name 
     },
     poopRemove(state, index) {
       state.poops.splice(index, 1)
       state.credits += 1
-      state.happy += 1
+      if (state.happy >= 100) {
+          state.happy = 100
+        } else {
+          state.happy += 1
+        }
     },
     Feed(state, cost) {
       let a = Math.floor(Math.random() * 3)
@@ -87,6 +68,7 @@ export default new Vuex.Store({
         alert("Oh no! You fed " + state.petName + " rotten food!")
         state.shitTimer = setInterval(() => { state.poops.push([Math.floor(Math.random() * 100), Math.floor(Math.random() * 100)]) }, 500)
         setTimeout(() => { clearInterval(state.shitTimer) }, 20000)
+        setTimeout(()=>{ state.poops = []  }, 22000)
         if (state.happy >= 60) {
           state.happy -= 60
         } else {
@@ -165,7 +147,7 @@ export default new Vuex.Store({
       } else {
         state.happy += fun
       }
-      state.credits += ((fun * this.state.happy) / 100)
+      state.credits += Math.floor((fun * this.state.happy) / 100)
       state.hunger -= fun
     },
 
@@ -212,6 +194,14 @@ export default new Vuex.Store({
         commit('updatePoop')
         console.log('poopstatus')
       }, 10000)
+      setInterval(() => {
+        localStorage.setItem('hunger', this.state.hunger)
+        localStorage.setItem('happy', this.state.happy)
+        localStorage.setItem('credits', this.state.credits)
+        localStorage.setItem("toys", JSON.stringify(this.state.toys))
+        localStorage.setItem("candies", JSON.stringify(this.state.candies))
+        localStorage.setItem("foods", JSON.stringify(this.state.foods))
+      }, 1000)
     },
   }
 })

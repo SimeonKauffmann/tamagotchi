@@ -27,13 +27,15 @@ export default new Vuex.Store({
       localStorage.setItem('hunger', 50)
       localStorage.setItem('happy', 50)
       localStorage.setItem('credits', 0)
+      localStorage.setItem('timeThen',  Math.floor((new Date().getTime()) / 60000))
     },
     startGame() {
       localStorage.setItem('timeThen', this.state.timeNow)
+      
       console.log("startGame out")
       console.log(Number(this.state.timeNow) - Number(this.state.timeThen))
       this.state.poopsNumber = Number(this.state.timeNow) - Number(this.state.timeThen)
-      /*for (let i = 0; i <= this.state.poopsNumber; i++) {
+      for (let i = 0; i <= this.state.poopsNumber; i++) {
         console.log("startgame in")
         this.state.poops.push([Math.floor(Math.random() * 100), Math.floor(Math.random() * 100)])
         if (this.state.hunger > 0) {
@@ -45,7 +47,7 @@ export default new Vuex.Store({
           }
         }
         
-      }*/
+      }
       if (this.state.time24 < 6 || this.state.time24 > 22) {
           this.state.petSleep = true
         }

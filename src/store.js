@@ -55,12 +55,10 @@ export default new Vuex.Store({
         localStorage.setItem("foods", JSON.stringify(this.state.foods))
       }, 1000)
     },
-    poopGone(state, event) { 
-      let targetId = event.currentTarget.id
-      document.querySelector('#' + targetId).style.display =  'none'
-      console.log(targetId)
-      //state.poops.splice(targetId, targetId + 1)
+    poopRemove(state, index) {
+      state.poops.splice(index, 1)
       state.credits += 1
+      state.happy += 1
     },
     Feed(state, cost) {
       let a = Math.floor(Math.random() * 3)
@@ -68,6 +66,7 @@ export default new Vuex.Store({
         alert("Oh no! You fed " +state.petName+ " rotten food!")
         state.shitTimer = setInterval(() => { state.poops.push([Math.floor(Math.random() * 100), Math.floor(Math.random() * 100)])} , 500)
         setTimeout(() => { clearInterval(state.shitTimer) }, 20000)
+    
         if (state.happy >= 60) {
           state.happy -= 60
         } else {
@@ -144,11 +143,33 @@ export default new Vuex.Store({
         this.state.credits += ((fun * this.state.happy) / 100)
         this.state.hunger -= fun
       }
+    },
+    Sleep() {
+      if (this.state.time24 < 6 || this.state.time24 > 22) {
+        this.state.petSleep = true
+      }
+    },
+    updateMood(state) {
+      state.happy -= 1
+      state.hunger -= 1
+      state.credits += 1
+    },
+    updatePoop(state) {
+      state.poops.push([Math.floor(Math.random() * 100), Math.floor(Math.random() * 100)])
+      state.hunger -= 2
     }
 
   },
   actions: {
-
-
+    timeStuff({ commit }) {
+      setInterval(() => {
+        commit('updateMood')
+        console.log('moodstatus')
+      }, 5000)
+      setInterval(() => {
+        commit('updatePoop')
+        console.log('poopstatus')
+      }, 10000)
+    },
   }
 })

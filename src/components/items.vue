@@ -124,6 +124,7 @@ export default {
       }
       this.food = null
       this.toy = null
+      this.candy = null
       console.log("dropped")
     }
   },

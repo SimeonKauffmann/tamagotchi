@@ -16,6 +16,7 @@ import Poop from "@/components/poop.vue"
 import Feel from "@/components/feel.vue"
 
 export default {
+
   created() {
     if (localStorage.getItem("petName") === null) {
       this.$router.push({ name: "create" })

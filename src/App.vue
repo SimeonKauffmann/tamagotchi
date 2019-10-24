@@ -11,7 +11,8 @@
 
 <style>
 #app {
-  width: 100vw;
+  margin: 20px;
+  width: 90vw;
   height: 80vh;
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

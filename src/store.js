@@ -32,13 +32,13 @@ export default new Vuex.Store({
       localStorage.setItem('toys', JSON.stringify([{ name: "ball", funLevel: 2, cost: 1, symbol: "⚽" }]))
       localStorage.setItem('timeThen', Math.floor((new Date().getTime()) / 60000))
     },
-    startGame() {
-      localStorage.setItem('timeThen', this.state.timeNow)
+    startGame(state) {
+      localStorage.setItem('timeThen', state.timeNow)
 
       console.log("startGame out")
-      console.log(Number(this.state.timeNow) - Number(this.state.timeThen))
-      this.state.poopsNumber = Number(this.state.timeNow) - Number(this.state.timeThen)
-      for (let i = 0; i <= this.state.poopsNumber; i++) {
+      console.log(Math.floor((Number(state.timeNow) - Number(state.timeThen)) /60))
+      state.poopsNumber = Math.floor((Number(state.timeNow) - Number(state.timeThen) /60)) 
+      for (let i = 0; i <= state.poopsNumber; i++) {
         console.log("startgame in")
         this.state.poops.push([Math.floor(Math.random() * 100), Math.floor(Math.random() * 100)])
         if (this.state.hunger > 0) {
@@ -49,11 +49,20 @@ export default new Vuex.Store({
             this.state.happy -= 1
           }
         }
-
       }
       if (this.state.time24 < 6 || this.state.time24 > 22) {
         this.state.petSleep = true
       }
+      let deadness = setInterval(()=>{
+        console.log('are you dead yet?')
+       if(this.state.hunger === 0 && this.state.happy === 0){
+        localStorage.clear()
+        location.reload()
+        alert('You killed ' +state.petName+ '!')
+        clearInterval(deadness)
+       } 
+      }, 1000)
+      
     },
     setName(state, Name) {
       state.Name = Name
@@ -179,10 +188,11 @@ export default new Vuex.Store({
     },
     updatePoop(state) {
       state.poops.push([Math.floor(Math.random() * 100), Math.floor(Math.random() * 100)])
-      if (state.hunger <= 0) {
+      if (state.hunger <= 2) {
         state.hunger = 0
-      }
+      } else {
       state.hunger -= 2
+      }
     }
 
   },
@@ -204,6 +214,7 @@ export default new Vuex.Store({
         localStorage.setItem("candies", JSON.stringify(this.state.candies))
         localStorage.setItem("foods", JSON.stringify(this.state.foods))
       }, 1000)
+      
     },
   }
 })

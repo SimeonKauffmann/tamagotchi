@@ -20,20 +20,20 @@ export default new Vuex.Store({
     foods: [
       { name: "chicken", type: 'meat', cost: 5, symbol: '🍗' },
       { name: "steak", type: 'meat', cost: 10, symbol: '🍖' },
-      { name: "salmon", type: 'fish', cost: 20, symbol: '🍣' },
-      { name: "tuna", type: 'fish', cost: 30, symbol: '🐟'},
+      // { name: "salmon", type: 'fish', cost: 20, symbol: '🍣' },
+      // { name: "tuna", type: 'fish', cost: 30, symbol: '🐟' },
     ],
     candies: [
-      { name: "chocolate",  happyLevel: 1, cost: 2, symbol: '🍫' },
+      { name: "chocolate", happyLevel: 1, cost: 2, symbol: '🍫' },
       { name: "biscuit", happyLevel: 1, cost: 5, symbol: '🍪' },
-      { name: "cupcake", happyLevel: 1, cost: 10, symbol: '🧁' },
-      { name: "doughnut",  happyLevel: 1, cost: 15, symbol: '🍩' }
+      // { name: "cupcake", happyLevel: 1, cost: 10, symbol: '🧁' },
+      // { name: "doughnut", happyLevel: 1, cost: 15, symbol: '🍩' }
     ],
     toys: [
       { name: "ball", funLevel: 2, cost: 1, symbol: '⚽' },
       { name: "instrument", funLevel: 10, cost: 5, symbol: '🎺' },
-      { name: "yarn", funLevel: 20, cost: 10, symbol: '🧶' },
-      { name: "dice", funLevel: 30, cost: 15, symbol: '🎲' }
+      // { name: "yarn", funLevel: 20, cost: 10, symbol: '🧶' },
+      // { name: "dice", funLevel: 30, cost: 15, symbol: '🎲' }
     ],
   },
   mutations: {
@@ -95,9 +95,9 @@ export default new Vuex.Store({
     },
     buyFood(state, storeFood) {
       if (state.credits >= storeFood.cost) {
-        if(state.foods.length < 6) {
-        state.foods.push(storeFood)
-        state.credits -= storeFood.cost
+        if (state.foods.length < 6) {
+          state.foods.push(storeFood)
+          state.credits -= storeFood.cost
         } else {
           alert('Inventory full')
         }
@@ -107,9 +107,9 @@ export default new Vuex.Store({
     },
     buyCandy(state, storeCandy) {
       if (state.credits >= storeCandy.cost) {
-        if(state.candies.length < 6) {
-        state.candies.push(storeCandy)
-        state.credits -= storeCandy.cost
+        if (state.candies.length < 6) {
+          state.candies.push(storeCandy)
+          state.credits -= storeCandy.cost
         } else {
           alert('Inventory full')
         }
@@ -119,9 +119,9 @@ export default new Vuex.Store({
     },
     buyToy(state, storeToy) {
       if (state.credits >= storeToy.cost) {
-        if(state.toys.length < 6) {
-        state.toys.push(storeToy)
-        state.credits -= storeToy.cost
+        if (state.toys.length < 6) {
+          state.toys.push(storeToy)
+          state.credits -= storeToy.cost
         } else {
           alert('Inventory full')
         }
@@ -142,36 +142,14 @@ export default new Vuex.Store({
       console.log(index)
     },
 
-
-    // Play() {
-    //     if(this.state.hunger = 0){
-    //       alert(this.state.petName + ', is too hungry')
-    //     } else {
-    //       let a = Math.floor(Math.random()*40)
-    //       if (a + this.state.happy > 100){this.state.happy = 100} else {this.state.happy += a}
-    //       this.state.credits += ((a * this.state.happy)/100)
-    //     }
-
-    //   },
-    /*Feed(state, cost) {
-      if(state.credits < cost){
-        alert('You cant afford that')
-      } else {
-        this.state.credits -= cost
-          if(this.state.hunger > 85) {this.state.happy -= 20} else {
-          if(this.state.happy + 20 > 100){this.state.happy = 100}else{this.state.happy += 20}
-          if(this.state.hunger + cost > 100){this.state.hunger = 100}else{this.state.hunger += cost}
-      }
-    }
-    },*/
     Play(state, fun) {
-        if (fun + this.state.happy > 100) {
-          state.happy = 100
-        } else {
-          state.happy += fun
-        }
-        state.credits += ((fun * this.state.happy) / 100)
-        state.hunger -= fun
+      if (fun + this.state.happy > 100) {
+        state.happy = 100
+      } else {
+        state.happy += fun
+      }
+      state.credits += ((fun * this.state.happy) / 100)
+      state.hunger -= fun
     },
     Sleep() {
       if (this.state.time24 < 6 || this.state.time24 > 22) {
@@ -179,18 +157,19 @@ export default new Vuex.Store({
       }
     },
     updateMood(state) {
-      if(state.hunger < 50) {
+      if (state.hunger < 50) {
         state.happy -= 10
         state.hunger -= 3
+        state.credits += 2
       } else {
-      state.happy -= 1
-      state.hunger -= 1
-      state.credits += 1
+        state.happy -= 1
+        state.hunger -= 1
+        state.credits += 1
       }
-      if(state.hunger <= 0) {
+      if (state.hunger <= 0) {
         state.hunger = 0
       }
-      if(state.happy <= 0) {
+      if (state.happy <= 0) {
         state.happy = 0
       }
     },

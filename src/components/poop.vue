@@ -6,7 +6,9 @@
       v-bind:style="{ top: poop[0] + '%', left: poop[1] + '%', display: $store.state.poopDisplay}"
       v-on:click="poopClick(index)"
       :key="index"
-    ><span id="poopi">&#9832;</span></div>
+    >
+      <font-awesome-icon icon="poop" id="poopi" />
+    </div>
   </div>
 </template>
 
@@ -21,13 +23,12 @@
   cursor: pointer;
 }
 #poopi {
-  font-size: 5em;
-  color: brown;
+  font-size: 3em;
+  color: #7a5901;
 }
-
 </style>
 
-<script type="text/javascript" src="">
+<script>
 export default {
   name: "Poop",
   computed: {},

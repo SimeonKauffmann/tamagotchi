@@ -38,7 +38,7 @@ export default {
   name: "App",
   created() {
     this.$store.dispatch("timeStuff")
-    if(this.$store.state.petName === !null){
+    if(this.$store.state.petName !== null){
       this.$store.commit("startGame")
     }    
   },

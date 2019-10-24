@@ -2,7 +2,6 @@
   <div>
     <form v-on:submit="$store.commit('setPet')">
       <input type="text" v-model="Name"/>
-      {{ $store.state.Name }}
       <input type="submit" />
     </form>
   </div>
@@ -15,7 +14,7 @@ export default {
       get() {
         return this.$store.state.Name
       },
-      set(someValue) {
+      set(Name) {
         this.$store.commit('setName', Name)
       }
     }

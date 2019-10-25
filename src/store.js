@@ -89,15 +89,15 @@ export default new Vuex.Store({
         state.shitTimer = setInterval(() => { state.poops.push([Math.floor(Math.random() * 100), Math.floor(Math.random() * 100)]) }, 500)
         setTimeout(() => { clearInterval(state.shitTimer) }, 20000)
         setTimeout(() => { state.poops = [] }, 22000)
-        if (state.happy >= 60) {
+        if (state.happy >= 50) {
           state.happy -= 30
         } else {
-          state.happy = 10
+          state.happy = 0
         }
-        if (state.hunger >= 60) {
+        if (state.hunger >= 50) {
           state.hunger -= 30
         } else {
-          state.hunger = 10
+          state.hunger = 0
         }
       } else {
         if (state.happy + 20 > 100) {

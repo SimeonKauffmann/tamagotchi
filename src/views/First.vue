@@ -1,19 +1,19 @@
 <template>
-  <div class="pet-wrapper">
+  <div class="wrapper">
     <feel />
-    <something />
+    <dropzone />
     <poop />
   </div>
 </template>
 <script>
-import Something from "@/components/something.vue"
+import dropzone from "@/components/dropzone.vue"
 import Poop from "@/components/poop.vue"
 import Feel from "@/components/feel.vue"
 
 export default {
   name: "first",
   components: {
-    Something,
+    dropzone,
     Poop,
     Feel
   }
@@ -21,7 +21,7 @@ export default {
 </script>
 
 <style scoped>
-.pet-wrapper {
+.wrapper {
   display: flex;
 }
 </style>

@@ -1,8 +1,7 @@
 <template>
   <div>
-    <dropzone />
-    <div class="inventory">
-      <div class="inventory-wrapper">
+    <div class="inventory-wrapper">
+      <div class="inventory">
         <div
           class="food"
           v-for="(food, index) in $store.state.foods"
@@ -13,7 +12,7 @@
           :id="food.name"
         >{{food.symbol}}</div>
       </div>
-      <div class="inventory-wrapper">
+      <div class="inventory">
         <div
           class="candy"
           v-for="(candy, index) in $store.state.candies"
@@ -24,7 +23,7 @@
           :id="candy.name"
         >{{candy.symbol}}</div>
       </div>
-      <div class="inventory-wrapper">
+      <div class="inventory">
         <div
           class="toy"
           v-for="(toy, index) in $store.state.toys"
@@ -38,7 +37,7 @@
     </div>
     <div class="store-wrapper">
       <button v-on:click="showStore = !showStore">Toggle store</button>
-      <div class="buy-container" v-show="showStore">
+      <div class="store-container" v-show="showStore">
         <div class="buy-category">
           <button
             v-for="storeFood in storeFoods"
@@ -66,13 +65,8 @@
 </template>
 
 <script>
-import dropzone from "@/components/dropzone.vue"
-
 export default {
   name: "items",
-  components: {
-    dropzone
-  },
 
   methods: {
     buyFood(storeFood) {
@@ -115,32 +109,33 @@ export default {
 </script>
 
 <style scoped>
-.inventory-wrapper {
+.inventory {
   display: flex;
-  width: 500px;
+  width: 450px;
   height: 70px;
-  margin: 10px auto;
 }
 
-.inventory {
+.inventory-wrapper {
   width: 450px;
   height: 250px;
   margin: auto;
+  margin-bottom: 20px;
   border: 1px solid #aaaaaa;
+  border-radius: 10px;
   padding: 5px;
 }
 
 .store-wrapper {
   width: 450px;
+  padding: 5px;
   margin: auto;
-  padding: 10px;
 }
 
-.buy-container {
-  width: 450px;
-  margin: 10px auto;
+.store-container {
   border: 1px solid #aaaaaa;
-  padding: 5px;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 15px;
 }
 
 .buy-category {

@@ -1,15 +1,8 @@
 <template>
 <div class="drop-wrapper">
-      <div class="drop-container" v-on:drop="drop" v-on:dragover="allowDrop">
-        Give:
-        <div
-          class="drops"
-          :id="drops[0].name"
-          v-for="drop in drops"
-          :key="drop.name"
-        >{{drop.symbol}}</div>
+  <div class="drops" :id="drops[0].name" v-for="drop in drops" :key="drop.name">{{drop.symbol}}</div>
+    <div class="tamagotchi" v-on:drop="drop" v-on:dragover="allowDrop">🐒</div>
       </div>
-    </div>
 </template>
 
 <script>
@@ -73,10 +66,14 @@ export default {
   display: flex;
   width: 500px;
   margin: auto;
-  margin-bottom: 70px;
 }
 
 .drops {
   font-size: 70px;
+}
+
+.tamagotchi {
+  font-size: 8em;
+  margin: auto;
 }
 </style>

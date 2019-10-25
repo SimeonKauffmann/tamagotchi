@@ -91,7 +91,6 @@ export default {
   data() {
     return {
       showStore: true,
-      drops: [],
       storeFoods: [
         { name: "chicken", type: "meat", cost: 5, symbol: "🍗" },
         { name: "steak", type: "meat", cost: 10, symbol: "🍖" },
@@ -99,10 +98,10 @@ export default {
         { name: "tuna", type: "fish", cost: 30, symbol: "🐟" }
       ],
       storeCandies: [
-        { name: "chocolate", happyLevel: 1, cost: 2, symbol: "🍫" },
-        { name: "biscuit", happyLevel: 1, cost: 5, symbol: "🍪" },
-        { name: "cupcake", happyLevel: 1, cost: 10, symbol: "🧁" },
-        { name: "doughnut", happyLevel: 1, cost: 15, symbol: "🍩" }
+        { name: "chocolate", energyLevel: 1, cost: 2, symbol: "🍫" },
+        { name: "biscuit", energyLevel: 5, cost: 5, symbol: "🍪" },
+        { name: "cupcake", energyLevel: 10, cost: 10, symbol: "🧁" },
+        { name: "doughnut", energyLevel: 20, cost: 15, symbol: "🍩" }
       ],
       storeToys: [
         { name: "ball", funLevel: 2, cost: 1, symbol: "⚽" },

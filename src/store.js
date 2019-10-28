@@ -76,7 +76,7 @@ export default new Vuex.Store({
     setName(state, Name) {
       state.Name = Name
     },
-    setType(state, petType){
+    setType(state, petType) {
       state.petType = petType
     },
     poopRemove(state, index) {
@@ -120,10 +120,10 @@ export default new Vuex.Store({
           state.energy = 0
         }
       } else {
-        if (state.hunger + state.food.cost*2 > 100) {
-        state.hunger = 100
-      } else {
-          state.hunger += state.food.cost*2
+        if (state.hunger + state.food.cost * 2 > 100) {
+          state.hunger = 100
+        } else {
+          state.hunger += state.food.cost * 2
         }
       }
     },
@@ -169,17 +169,17 @@ export default new Vuex.Store({
       } else {
         state.happy += state.toy.funLevel
       }
-      state.credits += Math.floor((state.toy.funLevel * state.happy) / (50 + (20*state.level))) 
+      state.credits += Math.floor((state.toy.funLevel * state.happy) / (50 + (20 * state.level)))
       state.hunger -= state.toy.funLevel
       state.energy -= state.toy.funLevel
       state.hunger = Math.max(0, state.hunger)
       state.energy = Math.max(0, state.energy)
     },
     giveCandy(state) {
-      if (state.candy.energyLevel + state.energy*2 > 100) {
+      if (state.candy.energyLevel + state.energy * 2 > 100) {
         state.energy = 100
       } else {
-        state.energy += state.candy.energyLevel*2
+        state.energy += state.candy.energyLevel * 2
       }
     },
     Sleep() {
@@ -188,15 +188,15 @@ export default new Vuex.Store({
       }
     },
     updateMood(state) {
-      if (state.hunger < 50 || state.happy < 50) {
-        state.happy -= 5*state.level
-        state.hunger -= 2*state.level
-        state.energy -= 3*state.level
+      if (state.hunger < 50 || state.energy < 50) {
+        state.happy -= 5 * state.level
+        state.hunger -= 2 * state.level
+        state.energy -= 3 * state.level
         state.credits += 1
       } else {
-        state.happy -= 1*state.level
-        state.hunger -= 1*state.level
-        state.energy -= 1*state.level
+        state.happy += 5
+        state.hunger -= 1 * state.level
+        state.energy -= 1 * state.level
         state.credits += 3
       }
       state.happy = Math.max(0, state.happy)
@@ -205,7 +205,7 @@ export default new Vuex.Store({
     },
     updatePoop(state) {
       state.poops.push([Math.floor(Math.random() * 100), Math.floor(Math.random() * 100)])
-      state.hunger -= 1*state.level
+      state.hunger -= 1 * state.level
       state.hunger = Math.max(0, state.hunger)
     },
     foodDrag(state, { food, index }) {
@@ -253,17 +253,17 @@ export default new Vuex.Store({
         localStorage.setItem("toys", JSON.stringify(this.state.toys))
         localStorage.setItem("candies", JSON.stringify(this.state.candies))
         localStorage.setItem("foods", JSON.stringify(this.state.foods))
-        if(this.state.level === 1 && this.state.credits > 200){
+        if (this.state.level === 1 && this.state.credits > 200) {
           alert('congratulations you have reached level 2!')
           this.state.level = 2
           localStorage.setItem('level', 2)
         }
-        if(this.state.level === 2 && this.state.credits > 500){
+        if (this.state.level === 2 && this.state.credits > 500) {
           alert('congratulations you have reached level 3!')
           this.state.level = 3
           localStorage.setItem('level', 3)
         }
-        
+
       }, 1000)
 
     },

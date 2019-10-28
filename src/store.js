@@ -18,6 +18,7 @@ export default new Vuex.Store({
     petSleep: false,
     poops: [],
     poopsNumber: 0,
+    poopCredits: 1,
     happy: Number(localStorage.getItem('happy')),
     hunger: Number(localStorage.getItem('hunger')),
     energy: Number(localStorage.getItem('energy')),
@@ -62,7 +63,8 @@ export default new Vuex.Store({
         this.state.petSleep = true
       }
       let deadness = setInterval(() => {
-        if (this.state.hunger === 0 && this.state.happy === 0) {
+
+        if (this.state.hunger === 0 && this.state.happy === 0 && this.state.energy === 0) {
           localStorage.clear()
           alert('You killed ' + state.petName + '!')
           location.reload()
@@ -79,7 +81,7 @@ export default new Vuex.Store({
     },
     poopRemove(state, index) {
       state.poops.splice(index, 1)
-      state.credits += 3
+      state.credits += state.poopCredits
       if (state.happy >= 100) {
         state.happy = 100
       } else {
@@ -90,23 +92,37 @@ export default new Vuex.Store({
       let a = Math.floor(Math.random() * 8)
       if (a === 2) {
         alert("Oh no! You fed " + state.petName + " rotten food!")
-        state.shitTimer = setInterval(() => { state.poops.push([Math.floor(Math.random() * 100), Math.floor(Math.random() * 100)]) }, 500)
-        setTimeout(() => { clearInterval(state.shitTimer) }, 20000)
-        setTimeout(() => { state.poops = [] }, 22000)
-        if (state.happy > 30) {
-          state.happy -= 30 
+
+        state.shitTimer = setInterval(() => {
+          state.poops.push([Math.floor(Math.random() * 100), Math.floor(Math.random() * 100)])
+          state.poopCredits = 3
+        }, 500)
+        setTimeout(() => {
+          clearInterval(state.shitTimer)
+          state.poopCredits = 1
+        }, 20000)
+        setTimeout(() => {
+          state.poops = []
+        }, 22000)
+        if (state.happy >= 50) {
+          state.happy -= 30
         } else {
           state.happy = 0
         }
-        if (state.hunger > 30) {
+        if (state.hunger >= 50) {
           state.hunger -= 30
         } else {
           state.hunger = 0
         }
+        if (state.energy >= 50) {
+          state.energy -= 30
+        } else {
+          state.energy = 0
+        }
       } else {
         if (state.hunger + state.food.cost*2 > 100) {
-          state.hunger = 100
-        } else {
+        state.hunger = 100
+      } else {
           state.hunger += state.food.cost*2
         }
       }
@@ -173,7 +189,7 @@ export default new Vuex.Store({
     },
     updateMood(state) {
       if (state.hunger < 50 || state.happy < 50) {
-        state.happy -= 2*state.level
+        state.happy -= 5*state.level
         state.hunger -= 2*state.level
         state.energy -= 3*state.level
         state.credits += 1

@@ -23,5 +23,6 @@ export default {
 <style scoped>
 .wrapper {
   display: flex;
+  margin: 40px auto;
 }
 </style>

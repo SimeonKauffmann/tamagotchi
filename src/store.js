@@ -37,7 +37,7 @@ export default new Vuex.Store({
 
       console.log("startGame out")
       console.log(Math.floor((Number(state.timeNow) - Number(state.timeThen)) /60))
-      state.poopsNumber = Math.floor((Number(state.timeNow) - Number(state.timeThen) /60)) 
+      state.poopsNumber = Math.floor((Number(state.timeNow) - Number(state.timeThen)) /60) 
       for (let i = 0; i <= state.poopsNumber; i++) {
         console.log("startgame in")
         this.state.poops.push([Math.floor(Math.random() * 100), Math.floor(Math.random() * 100)])
@@ -57,8 +57,8 @@ export default new Vuex.Store({
         console.log('are you dead yet?')
        if(this.state.hunger === 0 && this.state.happy === 0){
         localStorage.clear()
-        location.reload()
         alert('You killed ' +state.petName+ '!')
+        location.reload()
         clearInterval(deadness)
        } 
       }, 1000)

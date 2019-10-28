@@ -39,7 +39,7 @@ export default new Vuex.Store({
       localStorage.setItem('happy', 50)
       localStorage.setItem('energy', 50)
       localStorage.setItem('credits', 100)
-      localStorage.setItem('foods', JSON.stringify([{ name: "chicken", type: "meat", cost: 5, symbol: "🍗" }]))
+      localStorage.setItem('foods', JSON.stringify([{ name: "chicken", type: "meat", cost: 5, foodLevel: 7, symbol: "🍗" }]))
       localStorage.setItem('candies', JSON.stringify([{ name: "chocolate", energyLevel: 1, cost: 2, symbol: "🍫" }]))
       localStorage.setItem('toys', JSON.stringify([{ name: "ball", funLevel: 2, cost: 1, symbol: "⚽" }]))
       localStorage.setItem('timeThen', Math.floor((new Date().getTime()) / 60000))
@@ -121,10 +121,10 @@ export default new Vuex.Store({
           state.energy = 0
         }
       } else {
-        if (state.hunger + state.food.cost * 2 > 100) {
+        if (state.hunger + state.food.foodLevel > 100) {
           state.hunger = 100
         } else {
-          state.hunger += state.food.cost * 2
+          state.hunger += state.food.foodLevel
         }
       }
     },
@@ -177,11 +177,10 @@ export default new Vuex.Store({
       state.energy = Math.max(0, state.energy)
     },
     giveCandy(state) {
-      if (state.candy.energyLevel + state.energy > 100) {
-        state.energy = 100
-      } else {
-        state.energy += state.candy.energyLevel * 2
-      }
+        state.energy += state.candy.energyLevel
+        if(state.energy > 100) {
+          state.energy = 100
+        }
     },
     Sleep() {
       if (this.state.time24 < 6 || this.state.time24 > 22) {
@@ -189,7 +188,7 @@ export default new Vuex.Store({
       }
     },
     updateMood(state) {
-      if (state.hunger < 50 || state.energy < 50) {
+      if (state.hunger < 50 || state.energy < 50 || state.poops.length > 3) {
         state.happy -= 5 * state.level
         state.hunger -= 2 * state.level
         state.energy -= 3 * state.level

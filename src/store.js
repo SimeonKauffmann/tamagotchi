@@ -28,7 +28,8 @@ export default new Vuex.Store({
     food: null,
     candy: null,
     toy: null,
-    index: null
+    index: null,
+    inventory: true
   },
   mutations: {
     setPet(state) {
@@ -176,7 +177,7 @@ export default new Vuex.Store({
       state.energy = Math.max(0, state.energy)
     },
     giveCandy(state) {
-      if (state.candy.energyLevel + state.energy * 2 > 100) {
+      if (state.candy.energyLevel + state.energy > 100) {
         state.energy = 100
       } else {
         state.energy += state.candy.energyLevel * 2
@@ -194,10 +195,17 @@ export default new Vuex.Store({
         state.energy -= 3 * state.level
         state.credits += 1
       } else {
-        state.happy += 5
-        state.hunger -= 1 * state.level
-        state.energy -= 1 * state.level
-        state.credits += 3
+        if (state.happy >= 95) {
+          state.happy = 100
+          state.hunger -= 1 * state.level
+          state.energy -= 1 * state.level
+          state.credits += 3
+        } else {
+          state.happy += 2
+          state.hunger -= 1 * state.level
+          state.energy -= 1 * state.level
+          state.credits += 3
+        }
       }
       state.happy = Math.max(0, state.happy)
       state.hunger = Math.max(0, state.hunger)
@@ -233,6 +241,9 @@ export default new Vuex.Store({
       state.food = null
       state.candy = null
       state.toy = null
+    },
+    rToggle(state) {
+      state.inventory = !state.inventory
     }
   },
   actions: {
@@ -248,8 +259,8 @@ export default new Vuex.Store({
       setInterval(() => {
         localStorage.setItem('hunger', this.state.hunger)
         localStorage.setItem('happy', this.state.happy)
-        localStorage.setItem("energy", JSON.stringify(this.state.energy))
         localStorage.setItem('credits', this.state.credits)
+        localStorage.setItem("energy", JSON.stringify(this.state.energy))
         localStorage.setItem("toys", JSON.stringify(this.state.toys))
         localStorage.setItem("candies", JSON.stringify(this.state.candies))
         localStorage.setItem("foods", JSON.stringify(this.state.foods))

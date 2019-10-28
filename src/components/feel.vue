@@ -21,8 +21,8 @@
       >{{$store.state.energy}}</div>
     </div>
     <div id="nav">
-      <router-link to="/">Home</router-link>|
-      <router-link to="/inventory">inventory</router-link>
+      <button v-if="$store.state.inventory" @click="showInv()">Inventory</button>
+      <button v-else @click="hideInv()">Hide Inventory</button>
     </div>
   </div>
 </template>
@@ -80,9 +80,21 @@
 <script>
 export default {
   name: "Feel",
+  methods: {
+    showInv() {
+      this.$router.push("inventory")
+      this.$store.commit("rToggle")
+    },
+    hideInv() {
+      this.$router.push("/")
+      this.$store.commit("rToggle")
+    }
+  },
   computed: {},
   data() {
-    return {}
+    return {
+      iToggle: true
+    }
   }
 }
 </script>

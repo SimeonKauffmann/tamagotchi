@@ -59,6 +59,7 @@ export default {
   display: flex;
   align-items: center;
   margin: auto;
+  margin-left: 30px;
 }
 
 .drop-container {

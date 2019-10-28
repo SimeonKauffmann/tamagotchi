@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link>|
-      <router-link to="/inventory">inventory</router-link>
+      <router-link to="/">Animal</router-link>|
+      <router-link to="/inventory">Inventory</router-link>
     </div>
     <create v-if="$store.state.petName === null" />
     <router-view v-else />

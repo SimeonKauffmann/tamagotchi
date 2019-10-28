@@ -1,22 +1,31 @@
 <template>
+<div class="pet-wrapper">
   <div class="tamagotchi">
-    <h1>:-)</h1>
+    🐒
   </div>
+  <dropzone />
+</div>
 </template>
 
-<style type="text/css" scope>
+<style scoped>
 .tamagotchi {
-  width: 200px;
-  height: 100px;
-  background-color: blue;
-  border: 2px solid black;
+  font-size: 8em;
   margin: auto;
+}
+
+.pet-wrapper {
+  margin: auto;
+  display: flex;
 }
 </style>
 
 <script>
+import dropzone from "@/components/dropzone.vue"
 export default {
-  name: "Something"
+  name: "Something",
+  components: {
+    dropzone
+  },
 }
 </script>
 

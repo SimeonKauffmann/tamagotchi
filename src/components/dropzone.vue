@@ -1,15 +1,17 @@
 <template>
-<div class="drop-wrapper">
-  <div class="drops" :id="drops[0].name" v-for="drop in drops" :key="drop.name">{{drop.symbol}}</div>
+  <div class="drop-wrapper">
+    <div class="drop-container">
+      <div class="drops" :id="drops[0].name" v-for="drop in drops" :key="drop.name">{{drop.symbol}}</div>
+    </div>
     <div class="tamagotchi" v-on:drop="drop" v-on:dragover="allowDrop">🐒</div>
-      </div>
+  </div>
 </template>
 
 <script>
 export default {
   name: "Dropzone",
 
-   methods: {
+  methods: {
     allowDrop(event) {
       event.preventDefault()
     },
@@ -21,51 +23,46 @@ export default {
       if (this.drops.length === 0) {
         if (this.$store.state.food) {
           this.drops.push({ symbol: this.$store.state.food.symbol })
-          this.$store.commit('Feed')
-          this.$store.commit('removeFood')
+          this.$store.commit("Feed")
+          this.$store.commit("removeFood")
         } else if (this.$store.state.toy) {
           if (this.$store.state.hunger > 10 && this.$store.state.energy > 10) {
             this.drops.push({ symbol: this.$store.state.toy.symbol })
-            this.$store.commit('Play')
-            this.$store.commit('removeToy')
+            this.$store.commit("Play")
+            this.$store.commit("removeToy")
           } else {
-            alert(this.$store.state.petName + ' is too fatigued to play rigth now.')
+            alert(
+              this.$store.state.petName + " is too fatigued to play rigth now."
+            )
           }
         } else {
           this.drops.push({ symbol: this.$store.state.candy.symbol })
-          this.$store.commit('giveCandy')
+          this.$store.commit("giveCandy")
           this.$store.commit("removeCandy")
         }
       }
-      this.$store.commit('resetItems')
+      this.$store.commit("resetItems")
       console.log("dropped")
     }
   },
   data() {
     return {
-      drops: [],
+      drops: []
     }
   }
 }
-
 </script>
 
 
 <style scoped>
-.drop-container {
-  width: 250px;
-  height: 150px;
-  padding: 10px;
-  border: 1px solid #aaaaaa;
-  border-radius: 1.5em;
-  margin: auto;
-  text-align: center;
-}
-
 .drop-wrapper {
   display: flex;
-  width: 500px;
+  align-items: center;
   margin: auto;
+}
+
+.drop-container {
+  width: 100px;
 }
 
 .drops {
@@ -74,6 +71,5 @@ export default {
 
 .tamagotchi {
   font-size: 8em;
-  margin: auto;
 }
 </style>

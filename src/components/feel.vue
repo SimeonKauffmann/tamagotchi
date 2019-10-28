@@ -8,11 +8,21 @@
     </div>
     <p>Hunger</p>
     <div id="hunger-bar">
-      <div id="hunger-meter" v-bind:style="{width: $store.state.hunger + 'px'}">{{$store.state.hunger}}</div>
+      <div
+        id="hunger-meter"
+        v-bind:style="{width: $store.state.hunger + 'px'}"
+      >{{$store.state.hunger}}</div>
     </div>
     <p>Energy</p>
     <div id="energy-bar">
-      <div id="energy-meter" v-bind:style="{width: $store.state.energy + 'px'}">{{$store.state.energy}}</div>
+      <div
+        id="energy-meter"
+        v-bind:style="{width: $store.state.energy + 'px'}"
+      >{{$store.state.energy}}</div>
+    </div>
+    <div id="nav">
+      <router-link to="/">Home</router-link>|
+      <router-link to="/inventory">inventory</router-link>
     </div>
   </div>
 </template>
@@ -70,6 +80,9 @@
 <script>
 export default {
   name: "Feel",
-  computed: {}
+  computed: {},
+  data() {
+    return {}
+  }
 }
 </script>

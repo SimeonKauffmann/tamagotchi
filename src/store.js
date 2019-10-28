@@ -42,8 +42,8 @@ export default new Vuex.Store({
       localStorage.setItem('timeThen', state.timeNow)
 
       console.log("startGame out")
-      console.log(Math.floor((Number(state.timeNow) - Number(state.timeThen)) /60))
-      state.poopsNumber = Math.floor((Number(state.timeNow) - Number(state.timeThen)) /60)
+      console.log(Math.floor((Number(state.timeNow) - Number(state.timeThen)) / 60))
+      state.poopsNumber = Math.floor((Number(state.timeNow) - Number(state.timeThen)) / 60)
       for (let i = 0; i <= state.poopsNumber; i++) {
         console.log("startgame in")
         this.state.poops.push([Math.floor(Math.random() * 100), Math.floor(Math.random() * 100)])
@@ -59,16 +59,16 @@ export default new Vuex.Store({
       if (this.state.time24 < 6 || this.state.time24 > 22) {
         this.state.petSleep = true
       }
-      let deadness = setInterval(()=>{
+      let deadness = setInterval(() => {
         console.log('are you dead yet?')
-       if(this.state.hunger === 0 && this.state.happy === 0){
-        localStorage.clear()
-        alert('You killed ' +state.petName+ '!')
-        location.reload()
-        clearInterval(deadness)
-       } 
+        if (this.state.hunger === 0 && this.state.happy === 0) {
+          localStorage.clear()
+          alert('You killed ' + state.petName + '!')
+          location.reload()
+          clearInterval(deadness)
+        }
       }, 1000)
-      
+
     },
     setName(state, Name) {
       state.Name = Name
@@ -194,15 +194,15 @@ export default new Vuex.Store({
       state.hunger -= 1
       state.hunger = Math.max(0, state.hunger)
     },
-    foodDrag(state, {food, index}) {
+    foodDrag(state, { food, index }) {
       state.food = food
       state.index = index
     },
-    candyDrag(state, {candy, index}) {
+    candyDrag(state, { candy, index }) {
       state.candy = candy
       state.index = index
     },
-    toyDrag(state, {toy, index}) {
+    toyDrag(state, { toy, index }) {
       state.toy = toy
       state.index = index
     },
@@ -234,12 +234,13 @@ export default new Vuex.Store({
       setInterval(() => {
         localStorage.setItem('hunger', this.state.hunger)
         localStorage.setItem('happy', this.state.happy)
+        localStorage.setItem("energy", JSON.stringify(this.state.energy))
         localStorage.setItem('credits', this.state.credits)
         localStorage.setItem("toys", JSON.stringify(this.state.toys))
         localStorage.setItem("candies", JSON.stringify(this.state.candies))
         localStorage.setItem("foods", JSON.stringify(this.state.foods))
       }, 1000)
-      
+
     },
   }
 })

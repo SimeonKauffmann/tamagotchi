@@ -7,7 +7,7 @@ export default new Vuex.Store({
   state: {
     shitTimer: null,
     Name: '',
-    petType: '',
+    petType: '🐕',
     petSpecies: localStorage.getItem('petSpecies'),
     credits: Number(localStorage.getItem('credits')),
     timeNow: Math.floor((new Date().getTime()) / 60000),
@@ -37,7 +37,7 @@ export default new Vuex.Store({
       localStorage.setItem('hunger', 50)
       localStorage.setItem('happy', 50)
       localStorage.setItem('energy', 50)
-      localStorage.setItem('credits', 100)
+      localStorage.setItem('credits', 50)
       localStorage.setItem('foods', JSON.stringify([{ name: "chicken", type: "meat", cost: 5, symbol: "🍗" }]))
       localStorage.setItem('candies', JSON.stringify([{ name: "chocolate", energyLevel: 1, cost: 2, symbol: "🍫" }]))
       localStorage.setItem('toys', JSON.stringify([{ name: "ball", funLevel: 2, cost: 1, symbol: "⚽" }]))
@@ -46,7 +46,6 @@ export default new Vuex.Store({
     },
     startGame(state) {
       localStorage.setItem('timeThen', state.timeNow)
-      console.log(Math.floor((Number(state.timeNow) - Number(state.timeThen)) / 60))
       state.poopsNumber = Math.floor((Number(state.timeNow) - Number(state.timeThen)) / 60)
       for (let i = 0; i <= state.poopsNumber; i++) {
         this.state.poops.push([Math.floor(Math.random() * 100), Math.floor(Math.random() * 100)])
@@ -239,11 +238,9 @@ export default new Vuex.Store({
     timeStuff({ commit }) {
       setInterval(() => {
         commit('updateMood')
-        console.log('moodstatus')
       }, 10000)
       setInterval(() => {
         commit('updatePoop')
-        console.log('poopstatus')
       }, 15000)
       setInterval(() => {
         localStorage.setItem('hunger', this.state.hunger)

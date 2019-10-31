@@ -96,7 +96,7 @@ export default new Vuex.Store({
       }
     },
     Feed(state) {
-      let a = Math.floor(Math.random() * 8)
+      let a = Math.floor(Math.random() * 5)
       if (a === 2) {
         alert("Oh no! You fed " + state.petName + " rotten food!")
 

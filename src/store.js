@@ -28,7 +28,8 @@ export default new Vuex.Store({
     food: null,
     candy: null,
     toy: null,
-    index: null
+    index: null,
+    inventory: true
   },
   mutations: {
     setPet(state) {
@@ -37,8 +38,8 @@ export default new Vuex.Store({
       localStorage.setItem('hunger', 50)
       localStorage.setItem('happy', 50)
       localStorage.setItem('energy', 50)
-      localStorage.setItem('credits', 50)
-      localStorage.setItem('foods', JSON.stringify([{ name: "chicken", type: "meat", cost: 5, symbol: "🍗" }]))
+      localStorage.setItem('credits', 100)
+      localStorage.setItem('foods', JSON.stringify([{ name: "chicken", type: "meat", cost: 5, foodLevel: 7, symbol: "🍗" }]))
       localStorage.setItem('candies', JSON.stringify([{ name: "chocolate", energyLevel: 1, cost: 2, symbol: "🍫" }]))
       localStorage.setItem('toys', JSON.stringify([{ name: "ball", funLevel: 2, cost: 1, symbol: "⚽" }]))
       localStorage.setItem('timeThen', Math.floor((new Date().getTime()) / 60000))
@@ -62,11 +63,18 @@ export default new Vuex.Store({
         this.state.petSleep = true
       }
       let deadness = setInterval(() => {
-
+        localStorage.setItem('hunger', this.state.hunger)
+        localStorage.setItem('happy', this.state.happy)
+        localStorage.setItem('credits', this.state.credits)
+        localStorage.setItem("energy", JSON.stringify(this.state.energy))
+        localStorage.setItem("toys", JSON.stringify(this.state.toys))
+        localStorage.setItem("candies", JSON.stringify(this.state.candies))
+        localStorage.setItem("foods", JSON.stringify(this.state.foods))
         if (this.state.hunger === 0 && this.state.happy === 0 && this.state.energy === 0) {
-          localStorage.clear()
+          localStorage.setItem('petName', null)
           alert('You killed ' + state.petName + '!')
           location.reload()
+          localStorage.clear()
           clearInterval(deadness)
         }
       }, 1000)
@@ -75,7 +83,7 @@ export default new Vuex.Store({
     setName(state, Name) {
       state.Name = Name
     },
-    setType(state, petType){
+    setType(state, petType) {
       state.petType = petType
     },
     poopRemove(state, index) {
@@ -119,10 +127,10 @@ export default new Vuex.Store({
           state.energy = 0
         }
       } else {
-        if (state.hunger + state.food.cost*2 > 100) {
-        state.hunger = 100
-      } else {
-          state.hunger += state.food.cost*2
+        if (state.hunger + state.food.foodLevel > 100) {
+          state.hunger = 100
+        } else {
+          state.hunger += state.food.foodLevel
         }
       }
     },
@@ -168,18 +176,17 @@ export default new Vuex.Store({
       } else {
         state.happy += state.toy.funLevel
       }
-      state.credits += Math.floor((state.toy.funLevel * state.happy) / (50 + (20*state.level))) 
+      state.credits += Math.floor((state.toy.funLevel * state.happy) / (50 + (20 * state.level)))
       state.hunger -= state.toy.funLevel
       state.energy -= state.toy.funLevel
       state.hunger = Math.max(0, state.hunger)
       state.energy = Math.max(0, state.energy)
     },
     giveCandy(state) {
-      if (state.candy.energyLevel + state.energy*2 > 100) {
-        state.energy = 100
-      } else {
-        state.energy += state.candy.energyLevel*2
-      }
+        state.energy += state.candy.energyLevel
+        if(state.energy > 100) {
+          state.energy = 100
+        }
     },
     Sleep() {
       if (this.state.time24 < 6 || this.state.time24 > 22) {
@@ -187,16 +194,23 @@ export default new Vuex.Store({
       }
     },
     updateMood(state) {
-      if (state.hunger < 50 || state.happy < 50) {
-        state.happy -= 5*state.level
-        state.hunger -= 2*state.level
-        state.energy -= 3*state.level
+      if (state.hunger < 50 || state.energy < 50 || state.poops.length > 3) {
+        state.happy -= 5 * state.level
+        state.hunger -= 2 * state.level
+        state.energy -= 3 * state.level
         state.credits += 1
       } else {
-        state.happy -= 1*state.level
-        state.hunger -= 1*state.level
-        state.energy -= 1*state.level
-        state.credits += 3
+        if (state.happy >= 95) {
+          state.happy = 100
+          state.hunger -= 1 * state.level
+          state.energy -= 1 * state.level
+          state.credits += 3
+        } else {
+          state.happy += 2
+          state.hunger -= 1 * state.level
+          state.energy -= 1 * state.level
+          state.credits += 3
+        }
       }
       state.happy = Math.max(0, state.happy)
       state.hunger = Math.max(0, state.hunger)
@@ -204,7 +218,7 @@ export default new Vuex.Store({
     },
     updatePoop(state) {
       state.poops.push([Math.floor(Math.random() * 100), Math.floor(Math.random() * 100)])
-      state.hunger -= 1*state.level
+      state.hunger -= 1 * state.level
       state.hunger = Math.max(0, state.hunger)
     },
     foodDrag(state, { food, index }) {
@@ -232,6 +246,9 @@ export default new Vuex.Store({
       state.food = null
       state.candy = null
       state.toy = null
+    },
+    rToggle(state) {
+      state.inventory = !state.inventory
     }
   },
   actions: {
@@ -243,24 +260,17 @@ export default new Vuex.Store({
         commit('updatePoop')
       }, 15000)
       setInterval(() => {
-        localStorage.setItem('hunger', this.state.hunger)
-        localStorage.setItem('happy', this.state.happy)
-        localStorage.setItem("energy", JSON.stringify(this.state.energy))
-        localStorage.setItem('credits', this.state.credits)
-        localStorage.setItem("toys", JSON.stringify(this.state.toys))
-        localStorage.setItem("candies", JSON.stringify(this.state.candies))
-        localStorage.setItem("foods", JSON.stringify(this.state.foods))
-        if(this.state.level === 1 && this.state.credits > 200){
+        if (this.state.level === 1 && this.state.credits > 200) {
           alert('congratulations you have reached level 2!')
           this.state.level = 2
           localStorage.setItem('level', 2)
         }
-        if(this.state.level === 2 && this.state.credits > 500){
+        if (this.state.level === 2 && this.state.credits > 500) {
           alert('congratulations you have reached level 3!')
           this.state.level = 3
           localStorage.setItem('level', 3)
         }
-        
+
       }, 1000)
 
     },

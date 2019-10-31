@@ -34,8 +34,6 @@ export default {
   computed: {},
   methods: {
     poopClick(index) {
-      console.log("Removing poop")
-      console.log(index)
       this.$store.commit("poopRemove", index)
     }
   }

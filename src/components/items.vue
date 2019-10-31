@@ -36,7 +36,8 @@
       </div>
     </div>
     <div class="store-wrapper">
-      <button v-on:click="showStore = !showStore">Toggle store</button>
+      <button v-if="showStore" @click="showStore = !showStore">Hide store</button>
+      <button v-else @click="showStore = !showStore">Show store</button>
       <div class="store-container" v-show="showStore">
         <div class="buy-category">
           <button
@@ -86,16 +87,16 @@ export default {
     return {
       showStore: true,
       storeFoods: [
-        { name: "chicken", type: "meat", cost: 5, symbol: "🍗" },
-        { name: "steak", type: "meat", cost: 10, symbol: "🍖" },
-        { name: "salmon", type: "fish", cost: 20, symbol: "🍣" },
-        { name: "tuna", type: "fish", cost: 30, symbol: "🐟" }
+        { name: "chicken", type: "meat", cost: 5, foodLevel: 7, symbol: "🍗" },
+        { name: "steak", type: "meat", cost: 10, foodLevel: 15, symbol: "🍖" },
+        { name: "salmon", type: "fish", cost: 20, foodLevel: 35, symbol: "🍣" },
+        { name: "tuna", type: "fish", cost: 30, foodLevel: 45, symbol: "🐟" }
       ],
       storeCandies: [
-        { name: "chocolate", energyLevel: 5, cost: 2, symbol: "🍫" },
-        { name: "biscuit", energyLevel: 10, cost: 5, symbol: "🍪" },
-        { name: "cupcake", energyLevel: 17, cost: 10, symbol: "🧁" },
-        { name: "doughnut", energyLevel: 30, cost: 15, symbol: "🍩" }
+        { name: "chocolate", energyLevel: 10, cost: 2, symbol: "🍫" },
+        { name: "biscuit", energyLevel: 15, cost: 5, symbol: "🍪" },
+        { name: "cupcake", energyLevel: 18, cost: 10, symbol: "🧁" },
+        { name: "doughnut", energyLevel: 25, cost: 15, symbol: "🍩" }
       ],
       storeToys: [
         { name: "ball", funLevel: 2, cost: 1, symbol: "⚽" },

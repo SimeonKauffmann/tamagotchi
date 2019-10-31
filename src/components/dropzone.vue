@@ -1,10 +1,9 @@
 <template>
-<div class="drop-wrapper">
-  <div class="drop-container">
-  <div class="drops" :id="drops[0].name" v-for="drop in drops" :key="drop.name">{{drop.symbol}}</div>
-    <div class="tamagotchi" v-on:drop="drop" v-on:dragover="allowDrop">{{$store.state.petSpecies}}</div>
-      
+  <div class="drop-wrapper">
+    <div class="drop-container">
+      <div class="drops" :id="drops[0].name" v-for="drop in drops" :key="drop.name">{{drop.symbol}}</div>
     </div>
+    <div class="tamagotchi" v-on:drop="drop" v-on:dragover="allowDrop">{{$store.state.petSpecies}}</div>
   </div>
 </template>
 
@@ -60,6 +59,7 @@ export default {
   display: flex;
   align-items: center;
   margin: auto;
+  margin-left: 30px;
 }
 
 .drop-container {
